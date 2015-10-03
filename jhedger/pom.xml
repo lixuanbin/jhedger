@@ -9,11 +9,12 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<log4j.version>1.2.17</log4j.version>
 		<slf4j.version>1.7.3</slf4j.version>
-		<springframework.version>3.1.2.RELEASE</springframework.version>
+		<springframework.version>3.2.2.RELEASE</springframework.version>
 		<xstream.version>1.4.4</xstream.version>
 		<jackson.version>1.9.12</jackson.version>
 		<druid.version>1.0.15</druid.version>
 		<mysql-connector.version>5.1.36</mysql-connector.version>
+		<httpclient.version>4.5.1</httpclient.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -102,6 +103,11 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql-connector.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
