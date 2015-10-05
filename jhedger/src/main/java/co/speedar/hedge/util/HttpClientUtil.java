@@ -31,32 +31,33 @@ public class HttpClientUtil {
 	/**
 	 * Execute an http get request and return the response content.
 	 * 
-	 * @param host
-	 *            the remote host, eg. http://www.baidu.com
-	 * @param params
+	 * @param hostPath
+	 *            the remote host and path, eg. http://www.baidu.com/wtf
+	 * @param paramMap
 	 *            key-value based request parameters, values will be encoded
 	 * @param encoding
 	 *            request and response character encoding, defaults to utf-8
 	 * @return the response content in string
 	 */
-	public static String getString(String host, Map<String, String> params, String encoding) {
+	public static String getStringFromHost(String hostPath, Map<String, String> paramMap, Map<String, String> headerMap,
+			String encoding) {
 		String result = null;
 		if (StringUtils.isBlank(encoding)) {
 			encoding = "utf-8";
 		}
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try {
-			String uri = buildUri(host, params, encoding);
+			String uri = buildUri(hostPath, paramMap, encoding);
 			HttpGet httpget = new HttpGet(uri);
-			log.info("executing request " + uri);
+			log.debug("executing request " + uri);
 			CloseableHttpResponse response = httpclient.execute(httpget);
 			try {
 				HttpEntity entity = response.getEntity();
-				log.info("Response status: " + response.getStatusLine());
+				log.debug("Response status: " + response.getStatusLine());
 				if (entity != null && response.getStatusLine().getStatusCode() == 200) {
-					log.info("Response content length: " + entity.getContentLength());
+					log.debug("Response content length: " + entity.getContentLength());
 					result = EntityUtils.toString(entity, encoding);
-					log.info("Response content: " + result);
+					log.debug("Response content: " + result);
 				}
 			} finally {
 				response.close();
@@ -99,6 +100,6 @@ public class HttpClientUtil {
 	public static void main(String[] args) {
 		Map<String, String> params = new HashMap<>();
 		params.put("prefixsug", "医药广告");
-		getString("http://www.baidu.com", params, "utf-8");
+		getStringFromHost("http://www.baidu.com", params, null, "utf-8");
 	}
 }
