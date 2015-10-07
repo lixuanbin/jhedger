@@ -2,4 +2,5 @@
 /target/
 /.classpath
 /.project
+/**.log
 /jhedger.log**

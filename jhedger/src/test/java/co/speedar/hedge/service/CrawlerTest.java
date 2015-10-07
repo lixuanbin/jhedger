@@ -1,5 +1,8 @@
 package co.speedar.hedge.service;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +20,15 @@ public class CrawlerTest {
 
 	@Test
 	public void testLof() {
-		lofCrawler.craw();
+		Date fireDate = new GregorianCalendar(2015, 9, 7, 10, 30, 30).getTime();
+		lofCrawler.craw(fireDate);
+		System.out.println(fireDate);
 	}
 
 	@Test
 	public void testEtf() {
-		etfCrawler.craw();
+		Date fireDate = new GregorianCalendar(2015, 9, 7, 10, 30, 30).getTime();
+		etfCrawler.craw(fireDate);
+		System.out.println(fireDate);
 	}
 }
