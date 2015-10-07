@@ -6,6 +6,8 @@ package co.speedar.hedge.service;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -25,18 +27,29 @@ import co.speedar.hedge.util.SwingUtil;
 @Service
 public class LofCrawler {
 	protected static final Logger log = Logger.getLogger(LofCrawler.class);
+	// These params should be configurable, tune them yourself!
 	protected static final int volumnFence = 500;
 	protected static final float fundbDiscountRateFence = 15;
 	protected static final float lowerDiscountRate = -2.5f;
 	protected static final float upperDiscountRate = 5;
 	protected static final float fundbIncreaseRateFence = 9;
 	protected static final float fundbLowerRecalcRateFence = 10;
+	private Set<String> hasNotifiedSet = new ConcurrentSkipListSet<>();
 
 	@Scheduled(cron = "1 1/3 9-11,13-14 * * MON-FRI")
 	public void execute() {
 		Date fireDate = new Date();
 		try {
 			craw(fireDate);
+		} catch (Exception e) {
+			log.error(e, e);
+		}
+	}
+
+	@Scheduled(cron = "11 28 9 * * MON-FRI")
+	public void clearNotifiedSet() {
+		try {
+			hasNotifiedSet.clear();
 		} catch (Exception e) {
 			log.error(e, e);
 		}
@@ -51,14 +64,14 @@ public class LofCrawler {
 		} else {
 			String json = getLofJson(fireDate);
 			log.info(json);
-			checkAndNotify(json);
+			checkAndNotify(json, fireDate);
 		}
 	}
 
 	/**
 	 * @param json
 	 */
-	public void checkAndNotify(String json) {
+	public void checkAndNotify(String json, Date fireDate) {
 		JSONObject jsonObject = new JSONObject(json);
 		JSONArray jsonArray = jsonObject.getJSONArray("rows");
 		final StringBuffer lowerSb = new StringBuffer();
@@ -71,8 +84,9 @@ public class LofCrawler {
 			float currentPrice = Float.valueOf(cell.getString("fundb_current_price"));
 			float fundbVolumn = Float.valueOf(cell.getString("fundb_volume"));
 			float fundbDiscountRate = Float.valueOf(StringUtils.removeEnd(cell.getString("fundb_discount_rt"), "%"));
-			if (fundbVolumn < volumnFence || fundbDiscountRate > fundbDiscountRateFence) {
-				// 成交量太小或者B端溢价率太高直接pass
+			if (fundbVolumn < volumnFence || fundbDiscountRate > fundbDiscountRateFence
+					|| hasNotifiedSet.contains(fundbId)) {
+				// 成交量太小,已经提醒过,或者B端溢价率太高直接pass
 				continue;
 			}
 			float fundbIncreaseRate = Float.valueOf(StringUtils.removeEnd(cell.getString("fundb_increase_rt"), "%"));
@@ -85,11 +99,15 @@ public class LofCrawler {
 			float baseDiscountRate = Float.valueOf(StringUtils.removeEnd(cell.getString("fundb_base_est_dis_rt"), "%"));
 			if (baseDiscountRate < lowerDiscountRate && fundbIncreaseRate < fundbIncreaseRateFence
 					&& fundbLowerRecalcRate > fundbLowerRecalcRateFence) {
+				hasNotifiedSet.add(fundbId);
 				lowerSb.append(String.format("%s, %s, %.2f%%, %.2f%%, %.2f%%, %.3f\n\t%s, %s, %.2f%%\n\n", fundbId,
 						fundbName, fundbIncreaseRate, fundbDiscountRate, baseDiscountRate, currentPrice, indexId,
 						indexName, indexIncreaseRate));
 			}
-			if (baseDiscountRate > upperDiscountRate && fundbLowerRecalcRate > fundbLowerRecalcRateFence) {
+			if (baseDiscountRate > upperDiscountRate && fundbLowerRecalcRate > fundbLowerRecalcRateFence
+					&& fireDate.after(CrawlerHelper.setTimeOfDate(fireDate, 14, 30, 0))) {
+				// 两点半后才考虑做溢价
+				hasNotifiedSet.add(fundbId);
 				upperSb.append(String.format("%s, %s, %.2f%%, %.2f%%, %.2f%%, %.3f\n\t%s, %s, %.2f%%\n\n", fundbId,
 						fundbName, fundbIncreaseRate, fundbDiscountRate, baseDiscountRate, currentPrice, indexId,
 						indexName, indexIncreaseRate));
@@ -131,6 +149,7 @@ public class LofCrawler {
 		headerMap.put("Accept", "*/*");
 		headerMap.put("Cache-Control", "no-cache");
 		headerMap.put("Pragma", "no-cache");
+		// Find yourself a better source.
 		String hostPath = "http://www.jisilu.cn/data/sfnew/fundb_list/";
 		String json = HttpClientUtil.getStringFromHost(hostPath, paramMap, headerMap, "utf-8");
 		return json;

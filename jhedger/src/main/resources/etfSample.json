@@ -1,0 +1,1887 @@
+{
+    "page": 1,
+    "rows": [
+        {
+            "id": "159901",
+            "cell": {
+                "fund_id": "159901",
+                "fund_nm": "深100ETF",
+                "index_id": "399330",
+                "index_nm": "深证100",
+                "index_increase_rt": "0.62%",
+                "price": "3.597",
+                "volume": "1827.00",
+                "last_time": "15:02:52",
+                "increase_rt": "0.39%",
+                "estimate_value": "3.6749",
+                "last_est_time": "23:50:01",
+                "discount_rt": "-2.20%",
+                "fund_nav": "3.6762",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159902",
+            "cell": {
+                "fund_id": "159902",
+                "fund_nm": "中 小 板",
+                "index_id": "399005",
+                "index_nm": "中小板指",
+                "index_increase_rt": "0.54%",
+                "price": "3.070",
+                "volume": "3619.22",
+                "last_time": "15:02:52",
+                "increase_rt": "-0.68%",
+                "estimate_value": "3.1228",
+                "last_est_time": "23:50:01",
+                "discount_rt": "-1.86%",
+                "fund_nav": "3.1270",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159903",
+            "cell": {
+                "fund_id": "159903",
+                "fund_nm": "深成ETF",
+                "index_id": "399001",
+                "index_nm": "深证成指",
+                "index_increase_rt": "0.39%",
+                "price": "1.021",
+                "volume": "250.75",
+                "last_time": "15:02:52",
+                "increase_rt": "0.29%",
+                "estimate_value": "1.0500",
+                "last_est_time": "23:50:01",
+                "discount_rt": "-2.85%",
+                "fund_nav": "1.0501",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159905",
+            "cell": {
+                "fund_id": "159905",
+                "fund_nm": "深红利",
+                "index_id": "399324",
+                "index_nm": "深证红利",
+                "index_increase_rt": "0.79%",
+                "price": "0.934",
+                "volume": "23.14",
+                "last_time": "15:02:52",
+                "increase_rt": "0.11%",
+                "estimate_value": "0.9397",
+                "last_est_time": "23:50:01",
+                "discount_rt": "-0.59%",
+                "fund_nav": "0.9395",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159906",
+            "cell": {
+                "fund_id": "159906",
+                "fund_nm": "深成长",
+                "index_id": "399346",
+                "index_nm": "深证成长",
+                "index_increase_rt": "0.47%",
+                "price": "0.903",
+                "volume": "0.00",
+                "last_time": "15:02:52",
+                "increase_rt": "0.00%",
+                "estimate_value": "0.9454",
+                "last_est_time": "23:50:01",
+                "discount_rt": "-5.20%",
+                "fund_nav": "0.9500",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159907",
+            "cell": {
+                "fund_id": "159907",
+                "fund_nm": "中小300",
+                "index_id": "399008",
+                "index_nm": "中小300",
+                "index_increase_rt": "0.41%",
+                "price": "1.310",
+                "volume": "15.78",
+                "last_time": "15:02:52",
+                "increase_rt": "1.39%",
+                "estimate_value": "1.3253",
+                "last_est_time": "23:50:01",
+                "discount_rt": "-1.20%",
+                "fund_nav": "1.3257",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159908",
+            "cell": {
+                "fund_id": "159908",
+                "fund_nm": "深F200",
+                "index_id": "399703",
+                "index_nm": "深证F200",
+                "index_increase_rt": "0.79%",
+                "price": "1.022",
+                "volume": "0.05",
+                "last_time": "15:02:52",
+                "increase_rt": "2.30%",
+                "estimate_value": "1.0316",
+                "last_est_time": "23:50:01",
+                "discount_rt": "-0.86%",
+                "fund_nav": "1.0308",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159909",
+            "cell": {
+                "fund_id": "159909",
+                "fund_nm": "深TMT",
+                "index_id": "399609",
+                "index_nm": "TMT50R",
+                "index_increase_rt": "-",
+                "price": "5.200",
+                "volume": "2.77",
+                "last_time": "15:02:52",
+                "increase_rt": "-0.19%",
+                "estimate_value": "5.0630",
+                "last_est_time": "23:50:01",
+                "discount_rt": "2.52%",
+                "fund_nav": "5.0690",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159910",
+            "cell": {
+                "fund_id": "159910",
+                "fund_nm": "深F120",
+                "index_id": "399702",
+                "index_nm": "深证F120",
+                "index_increase_rt": "0.87%",
+                "price": "1.139",
+                "volume": "2.74",
+                "last_time": "15:02:52",
+                "increase_rt": "3.83%",
+                "estimate_value": "1.1275",
+                "last_est_time": "23:50:01",
+                "discount_rt": "1.20%",
+                "fund_nav": "1.1253",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159911",
+            "cell": {
+                "fund_id": "159911",
+                "fund_nm": "民营ETF",
+                "index_id": "399336",
+                "index_nm": "深证民营",
+                "index_increase_rt": "-",
+                "price": "4.100",
+                "volume": "8.94",
+                "last_time": "15:02:52",
+                "increase_rt": "2.04%",
+                "estimate_value": "4.1985",
+                "last_est_time": "23:50:01",
+                "discount_rt": "-2.22%",
+                "fund_nav": "4.1909",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159912",
+            "cell": {
+                "fund_id": "159912",
+                "fund_nm": "深300ETF",
+                "index_id": "399007",
+                "index_nm": "深证300",
+                "index_increase_rt": "0.50%",
+                "price": "1.198",
+                "volume": "2.53",
+                "last_time": "15:02:52",
+                "increase_rt": "-0.08%",
+                "estimate_value": "1.2367",
+                "last_est_time": "23:50:01",
+                "discount_rt": "-3.13%",
+                "fund_nav": "1.2355",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159913",
+            "cell": {
+                "fund_id": "159913",
+                "fund_nm": "深价值",
+                "index_id": "000919",
+                "index_nm": "300价值",
+                "index_increase_rt": "0.80%",
+                "price": "1.229",
+                "volume": "2.77",
+                "last_time": "15:02:52",
+                "increase_rt": "0.99%",
+                "estimate_value": "1.2277",
+                "last_est_time": "23:50:01",
+                "discount_rt": "-0.08%",
+                "fund_nav": "1.2300",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159915",
+            "cell": {
+                "fund_id": "159915",
+                "fund_nm": "创业板",
+                "index_id": "399006",
+                "index_nm": "创业板指",
+                "index_increase_rt": "-0.76%",
+                "price": "1.935",
+                "volume": "30577.33",
+                "last_time": "15:02:52",
+                "increase_rt": "-0.87%",
+                "estimate_value": "1.9616",
+                "last_est_time": "23:50:01",
+                "discount_rt": "-1.21%",
+                "fund_nav": "1.9585",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159916",
+            "cell": {
+                "fund_id": "159916",
+                "fund_nm": "深F60",
+                "index_id": "399701",
+                "index_nm": "深证F60",
+                "index_increase_rt": "1.01%",
+                "price": "2.056",
+                "volume": "9.60",
+                "last_time": "15:02:52",
+                "increase_rt": "-1.77%",
+                "estimate_value": "2.1397",
+                "last_est_time": "23:50:01",
+                "discount_rt": "-4.12%",
+                "fund_nav": "2.1407",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159917",
+            "cell": {
+                "fund_id": "159917",
+                "fund_nm": "中小成长",
+                "index_id": "399602",
+                "index_nm": "中小成长",
+                "index_increase_rt": "0.30%",
+                "price": "1.770",
+                "volume": "0.00",
+                "last_time": "09:10:00",
+                "increase_rt": "0.00%",
+                "estimate_value": "1.8736",
+                "last_est_time": "15:33:52",
+                "discount_rt": "-5.85%",
+                "fund_nav": "1.8680",
+                "nav_dt": "2015-08-26"
+            }
+        },
+        {
+            "id": "159918",
+            "cell": {
+                "fund_id": "159918",
+                "fund_nm": "中创400",
+                "index_id": "399624",
+                "index_nm": "中创400",
+                "index_increase_rt": "0.09%",
+                "price": "1.837",
+                "volume": "4.05",
+                "last_time": "15:02:52",
+                "increase_rt": "-1.08%",
+                "estimate_value": "1.9050",
+                "last_est_time": "23:50:01",
+                "discount_rt": "-3.64%",
+                "fund_nav": "1.9038",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159919",
+            "cell": {
+                "fund_id": "159919",
+                "fund_nm": "300ETF",
+                "index_id": "399300",
+                "index_nm": "沪深300",
+                "index_increase_rt": "0.77%",
+                "price": "3.284",
+                "volume": "7495.68",
+                "last_time": "15:02:52",
+                "increase_rt": "0.61%",
+                "estimate_value": "3.3728",
+                "last_est_time": "23:50:01",
+                "discount_rt": "-2.70%",
+                "fund_nav": "3.3727",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159920",
+            "cell": {
+                "fund_id": "159920",
+                "fund_nm": "恒生ETF",
+                "index_id": "HSI",
+                "index_nm": "恒生指数",
+                "index_increase_rt": "3.13%",
+                "price": "1.035",
+                "volume": "1246.34",
+                "last_time": "15:02:52",
+                "increase_rt": "0.58%",
+                "estimate_value": "1.0351",
+                "last_est_time": "23:50:02",
+                "discount_rt": "0.24%",
+                "fund_nav": "1.0325",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159921",
+            "cell": {
+                "fund_id": "159921",
+                "fund_nm": "中小等权",
+                "index_id": "399634",
+                "index_nm": "中小板EW",
+                "index_increase_rt": "0.54%",
+                "price": "1.529",
+                "volume": "90.92",
+                "last_time": "15:02:52",
+                "increase_rt": "-0.07%",
+                "estimate_value": "1.5704",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-2.55%",
+                "fund_nav": "1.5680",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159922",
+            "cell": {
+                "fund_id": "159922",
+                "fund_nm": "500ETF",
+                "index_id": "399905",
+                "index_nm": "中证 500",
+                "index_increase_rt": "0.33%",
+                "price": "5.931",
+                "volume": "177.67",
+                "last_time": "15:02:52",
+                "increase_rt": "0.53%",
+                "estimate_value": "5.9822",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-0.87%",
+                "fund_nav": "5.9824",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159923",
+            "cell": {
+                "fund_id": "159923",
+                "fund_nm": "100ETF",
+                "index_id": "000903",
+                "index_nm": "中证100",
+                "index_increase_rt": "0.98%",
+                "price": "1.186",
+                "volume": "3.74",
+                "last_time": "15:02:52",
+                "increase_rt": "0.51%",
+                "estimate_value": "1.1996",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-1.10%",
+                "fund_nav": "1.1990",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159924",
+            "cell": {
+                "fund_id": "159924",
+                "fund_nm": "300等权",
+                "index_id": "000984",
+                "index_nm": "300等权",
+                "index_increase_rt": "0.64%",
+                "price": "1.323",
+                "volume": "1.22",
+                "last_time": "15:02:52",
+                "increase_rt": "0.76%",
+                "estimate_value": "1.3798",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-4.23%",
+                "fund_nav": "1.3790",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159925",
+            "cell": {
+                "fund_id": "159925",
+                "fund_nm": "南方300",
+                "index_id": "000300",
+                "index_nm": "沪深300",
+                "index_increase_rt": "0.76%",
+                "price": "1.242",
+                "volume": "8.54",
+                "last_time": "15:02:52",
+                "increase_rt": "0.08%",
+                "estimate_value": "1.2733",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-2.52%",
+                "fund_nav": "1.2733",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159927",
+            "cell": {
+                "fund_id": "159927",
+                "fund_nm": "A300ETF",
+                "index_id": "399300",
+                "index_nm": "沪深300",
+                "index_increase_rt": "0.77%",
+                "price": "3.097",
+                "volume": "3.17",
+                "last_time": "15:02:52",
+                "increase_rt": "0.26%",
+                "estimate_value": "3.2456",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-4.62%",
+                "fund_nav": "3.2400",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159928",
+            "cell": {
+                "fund_id": "159928",
+                "fund_nm": "消费ETF",
+                "index_id": "399932",
+                "index_nm": "中证消费",
+                "index_increase_rt": "0.15%",
+                "price": "1.238",
+                "volume": "17.79",
+                "last_time": "15:02:52",
+                "increase_rt": "1.06%",
+                "estimate_value": "1.2312",
+                "last_est_time": "23:50:02",
+                "discount_rt": "0.58%",
+                "fund_nav": "1.2308",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159929",
+            "cell": {
+                "fund_id": "159929",
+                "fund_nm": "医药ETF",
+                "index_id": "399933",
+                "index_nm": "中证医药",
+                "index_increase_rt": "0.29%",
+                "price": "1.320",
+                "volume": "91.85",
+                "last_time": "15:02:52",
+                "increase_rt": "0.15%",
+                "estimate_value": "1.3377",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-1.32%",
+                "fund_nav": "1.3374",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159930",
+            "cell": {
+                "fund_id": "159930",
+                "fund_nm": "能源ETF",
+                "index_id": "399928",
+                "index_nm": "中证能源",
+                "index_increase_rt": "-0.34%",
+                "price": "0.905",
+                "volume": "23.26",
+                "last_time": "15:02:52",
+                "increase_rt": "-0.11%",
+                "estimate_value": "0.8944",
+                "last_est_time": "23:50:02",
+                "discount_rt": "2.32%",
+                "fund_nav": "0.8840",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159931",
+            "cell": {
+                "fund_id": "159931",
+                "fund_nm": "金融ETF",
+                "index_id": "399934",
+                "index_nm": "中证金融",
+                "index_increase_rt": "0.76%",
+                "price": "1.316",
+                "volume": "35.09",
+                "last_time": "15:02:52",
+                "increase_rt": "0.92%",
+                "estimate_value": "1.3232",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-0.46%",
+                "fund_nav": "1.3221",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159932",
+            "cell": {
+                "fund_id": "159932",
+                "fund_nm": "500深ETF",
+                "index_id": "399802",
+                "index_nm": "500深市",
+                "index_increase_rt": "0.32%",
+                "price": "1.620",
+                "volume": "3.84",
+                "last_time": "15:02:52",
+                "increase_rt": "0.00%",
+                "estimate_value": "1.7054",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-5.19%",
+                "fund_nav": "1.7040",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159933",
+            "cell": {
+                "fund_id": "159933",
+                "fund_nm": "金地ETF",
+                "index_id": "000914",
+                "index_nm": "300金融",
+                "index_increase_rt": "0.80%",
+                "price": "1.333",
+                "volume": "2.49",
+                "last_time": "15:02:52",
+                "increase_rt": "-0.89%",
+                "estimate_value": "1.3721",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-3.01%",
+                "fund_nav": "1.3731",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159935",
+            "cell": {
+                "fund_id": "159935",
+                "fund_nm": "景顺500",
+                "index_id": "000905",
+                "index_nm": "中证500",
+                "index_increase_rt": "0.33%",
+                "price": "1.597",
+                "volume": "0.17",
+                "last_time": "15:02:52",
+                "increase_rt": "0.00%",
+                "estimate_value": "1.5881",
+                "last_est_time": "23:50:02",
+                "discount_rt": "0.59%",
+                "fund_nav": "1.5876",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159936",
+            "cell": {
+                "fund_id": "159936",
+                "fund_nm": "可选消费",
+                "index_id": "000989",
+                "index_nm": "全指可选",
+                "index_increase_rt": "0.65%",
+                "price": "1.462",
+                "volume": "2.38",
+                "last_time": "15:02:52",
+                "increase_rt": "-1.88%",
+                "estimate_value": "1.4722",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-0.66%",
+                "fund_nav": "1.4717",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159938",
+            "cell": {
+                "fund_id": "159938",
+                "fund_nm": "广发医药",
+                "index_id": "000991",
+                "index_nm": "全指医药",
+                "index_increase_rt": "0.11%",
+                "price": "1.180",
+                "volume": "83.76",
+                "last_time": "15:02:52",
+                "increase_rt": "0.43%",
+                "estimate_value": "1.1903",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-0.87%",
+                "fund_nav": "1.1903",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159939",
+            "cell": {
+                "fund_id": "159939",
+                "fund_nm": "信息技术",
+                "index_id": "000993",
+                "index_nm": "全指信息",
+                "index_increase_rt": "-0.17%",
+                "price": "1.040",
+                "volume": "363.52",
+                "last_time": "15:02:52",
+                "increase_rt": "0.00%",
+                "estimate_value": "1.0454",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-0.51%",
+                "fund_nav": "1.0453",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159940",
+            "cell": {
+                "fund_id": "159940",
+                "fund_nm": "全指金融",
+                "index_id": "000934",
+                "index_nm": "中证金融",
+                "index_increase_rt": "0.76%",
+                "price": "0.689",
+                "volume": "13.89",
+                "last_time": "15:02:52",
+                "increase_rt": "0.29%",
+                "estimate_value": "0.6942",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-0.74%",
+                "fund_nav": "0.6941",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159942",
+            "cell": {
+                "fund_id": "159942",
+                "fund_nm": "中创100",
+                "index_id": "399612",
+                "index_nm": "中创100",
+                "index_increase_rt": "0.11%",
+                "price": "1.874",
+                "volume": "3.92",
+                "last_time": "15:02:52",
+                "increase_rt": "0.32%",
+                "estimate_value": "1.8991",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-1.44%",
+                "fund_nav": "1.9010",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159943",
+            "cell": {
+                "fund_id": "159943",
+                "fund_nm": "深证ETF",
+                "index_id": "399001",
+                "index_nm": "深证成指",
+                "index_increase_rt": "0.39%",
+                "price": "10.030",
+                "volume": "203.13",
+                "last_time": "15:02:52",
+                "increase_rt": "1.29%",
+                "estimate_value": "10.2488",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-2.23%",
+                "fund_nav": "10.2540",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159944",
+            "cell": {
+                "fund_id": "159944",
+                "fund_nm": "全指材料",
+                "index_id": "000987",
+                "index_nm": "全指材料",
+                "index_increase_rt": "0.24%",
+                "price": "0.699",
+                "volume": "22.53",
+                "last_time": "15:02:52",
+                "increase_rt": "1.45%",
+                "estimate_value": "0.7087",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-1.42%",
+                "fund_nav": "0.7089",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159945",
+            "cell": {
+                "fund_id": "159945",
+                "fund_nm": "全指能源",
+                "index_id": "000986",
+                "index_nm": "全指能源",
+                "index_increase_rt": "-0.23%",
+                "price": "0.637",
+                "volume": "10.66",
+                "last_time": "15:02:52",
+                "increase_rt": "-1.09%",
+                "estimate_value": "0.6347",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-0.24%",
+                "fund_nav": "0.6385",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "159946",
+            "cell": {
+                "fund_id": "159946",
+                "fund_nm": "全指消费",
+                "index_id": "000990",
+                "index_nm": "全指消费",
+                "index_increase_rt": "0.04%",
+                "price": "0.804",
+                "volume": "8.10",
+                "last_time": "15:02:52",
+                "increase_rt": "-0.50%",
+                "estimate_value": "0.8199",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-1.97%",
+                "fund_nav": "0.8198",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510010",
+            "cell": {
+                "fund_id": "510010",
+                "fund_nm": "治理ETF",
+                "index_id": "000021",
+                "index_nm": "180治理",
+                "index_increase_rt": "0.97%",
+                "price": "0.923",
+                "volume": "12.13",
+                "last_time": "15:02:48",
+                "increase_rt": "1.10%",
+                "estimate_value": "0.9249",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-0.22%",
+                "fund_nav": "0.9250",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510020",
+            "cell": {
+                "fund_id": "510020",
+                "fund_nm": "超大ETF",
+                "index_id": "000980",
+                "index_nm": "中证超大",
+                "index_increase_rt": "0.90%",
+                "price": "2.072",
+                "volume": "4.84",
+                "last_time": "15:02:48",
+                "increase_rt": "-1.75%",
+                "estimate_value": "2.1111",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-1.94%",
+                "fund_nav": "2.1121",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510030",
+            "cell": {
+                "fund_id": "510030",
+                "fund_nm": "价值ETF",
+                "index_id": "000029",
+                "index_nm": "180价值",
+                "index_increase_rt": "0.79%",
+                "price": "3.610",
+                "volume": "0.73",
+                "last_time": "15:02:48",
+                "increase_rt": "0.75%",
+                "estimate_value": "3.6990",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-2.44%",
+                "fund_nav": "3.6980",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510050",
+            "cell": {
+                "fund_id": "510050",
+                "fund_nm": "50ETF",
+                "index_id": "000016",
+                "index_nm": "上证50",
+                "index_increase_rt": "0.89%",
+                "price": "2.147",
+                "volume": "24053.82",
+                "last_time": "15:02:48",
+                "increase_rt": "0.94%",
+                "estimate_value": "2.1510",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-0.19%",
+                "fund_nav": "2.1510",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510060",
+            "cell": {
+                "fund_id": "510060",
+                "fund_nm": "央企ETF",
+                "index_id": "000042",
+                "index_nm": "上证央企",
+                "index_increase_rt": "0.96%",
+                "price": "1.590",
+                "volume": "138.38",
+                "last_time": "15:02:48",
+                "increase_rt": "1.27%",
+                "estimate_value": "1.5872",
+                "last_est_time": "23:50:02",
+                "discount_rt": "0.20%",
+                "fund_nav": "1.5868",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510070",
+            "cell": {
+                "fund_id": "510070",
+                "fund_nm": "民企ETF",
+                "index_id": "000049",
+                "index_nm": "上证民企",
+                "index_increase_rt": "0.23%",
+                "price": "1.560",
+                "volume": "29.33",
+                "last_time": "15:02:48",
+                "increase_rt": "0.65%",
+                "estimate_value": "1.5586",
+                "last_est_time": "23:50:02",
+                "discount_rt": "0.13%",
+                "fund_nav": "1.5580",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510090",
+            "cell": {
+                "fund_id": "510090",
+                "fund_nm": "责任ETF",
+                "index_id": "000048",
+                "index_nm": "责任指数",
+                "index_increase_rt": "1.11%",
+                "price": "1.146",
+                "volume": "0.00",
+                "last_time": "15:02:48",
+                "increase_rt": "0.00%",
+                "estimate_value": "1.1946",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-4.21%",
+                "fund_nav": "1.1942",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510110",
+            "cell": {
+                "fund_id": "510110",
+                "fund_nm": "周期ETF",
+                "index_id": "000063",
+                "index_nm": "上证周期",
+                "index_increase_rt": "0.73%",
+                "price": "2.735",
+                "volume": "0.00",
+                "last_time": "15:02:48",
+                "increase_rt": "0.00%",
+                "estimate_value": "2.8325",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-3.47%",
+                "fund_nav": "2.8300",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510120",
+            "cell": {
+                "fund_id": "510120",
+                "fund_nm": "非周ETF",
+                "index_id": "000064",
+                "index_nm": "非周期",
+                "index_increase_rt": "0.97%",
+                "price": "2.623",
+                "volume": "2.73",
+                "last_time": "15:02:48",
+                "increase_rt": "-2.71%",
+                "estimate_value": "2.7161",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-3.39%",
+                "fund_nav": "2.7120",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510130",
+            "cell": {
+                "fund_id": "510130",
+                "fund_nm": "中盘ETF",
+                "index_id": "000044",
+                "index_nm": "上证中盘",
+                "index_increase_rt": "0.61%",
+                "price": "3.498",
+                "volume": "4.84",
+                "last_time": "15:02:48",
+                "increase_rt": "-0.37%",
+                "estimate_value": "3.4975",
+                "last_est_time": "23:50:02",
+                "discount_rt": "0.02%",
+                "fund_nav": "3.4973",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510150",
+            "cell": {
+                "fund_id": "510150",
+                "fund_nm": "消费ETF",
+                "index_id": "000069",
+                "index_nm": "消费80",
+                "index_increase_rt": "0.55%",
+                "price": "3.699",
+                "volume": "3.76",
+                "last_time": "15:02:48",
+                "increase_rt": "3.32%",
+                "estimate_value": "3.5896",
+                "last_est_time": "23:50:02",
+                "discount_rt": "3.00%",
+                "fund_nav": "3.5880",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510160",
+            "cell": {
+                "fund_id": "510160",
+                "fund_nm": "小康ETF",
+                "index_id": "399901",
+                "index_nm": "小康指数",
+                "index_increase_rt": "0.64%",
+                "price": "0.492",
+                "volume": "43.58",
+                "last_time": "15:02:48",
+                "increase_rt": "1.23%",
+                "estimate_value": "0.4926",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-0.08%",
+                "fund_nav": "0.4924",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510170",
+            "cell": {
+                "fund_id": "510170",
+                "fund_nm": "商品ETF",
+                "index_id": "000066",
+                "index_nm": "上证商品",
+                "index_increase_rt": "0.37%",
+                "price": "1.660",
+                "volume": "1.74",
+                "last_time": "15:02:48",
+                "increase_rt": "-0.24%",
+                "estimate_value": "1.6451",
+                "last_est_time": "23:50:02",
+                "discount_rt": "0.90%",
+                "fund_nav": "1.6450",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510180",
+            "cell": {
+                "fund_id": "510180",
+                "fund_nm": "180ETF",
+                "index_id": "000010",
+                "index_nm": "上证180",
+                "index_increase_rt": "0.78%",
+                "price": "2.849",
+                "volume": "1202.58",
+                "last_time": "15:02:48",
+                "increase_rt": "0.85%",
+                "estimate_value": "2.8599",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-0.38%",
+                "fund_nav": "2.8599",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510190",
+            "cell": {
+                "fund_id": "510190",
+                "fund_nm": "龙头ETF",
+                "index_id": "000065",
+                "index_nm": "上证龙头",
+                "index_increase_rt": "0.47%",
+                "price": "3.094",
+                "volume": "3.64",
+                "last_time": "15:02:48",
+                "increase_rt": "0.19%",
+                "estimate_value": "3.0844",
+                "last_est_time": "23:50:02",
+                "discount_rt": "0.36%",
+                "fund_nav": "3.0830",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510210",
+            "cell": {
+                "fund_id": "510210",
+                "fund_nm": "综指ETF",
+                "index_id": "000001",
+                "index_nm": "上证指数",
+                "index_increase_rt": "0.48%",
+                "price": "3.289",
+                "volume": "3.55",
+                "last_time": "15:02:48",
+                "increase_rt": "2.21%",
+                "estimate_value": "3.3550",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-1.98%",
+                "fund_nav": "3.3540",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510220",
+            "cell": {
+                "fund_id": "510220",
+                "fund_nm": "中小ETF",
+                "index_id": "000046",
+                "index_nm": "上证中小",
+                "index_increase_rt": "0.43%",
+                "price": "3.900",
+                "volume": "6.78",
+                "last_time": "15:02:48",
+                "increase_rt": "1.22%",
+                "estimate_value": "3.9911",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-2.38%",
+                "fund_nav": "3.9930",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510230",
+            "cell": {
+                "fund_id": "510230",
+                "fund_nm": "金融ETF",
+                "index_id": "000018",
+                "index_nm": "180金融",
+                "index_increase_rt": "0.76%",
+                "price": "4.662",
+                "volume": "116.96",
+                "last_time": "15:02:48",
+                "increase_rt": "1.22%",
+                "estimate_value": "4.6573",
+                "last_est_time": "23:50:02",
+                "discount_rt": "0.11%",
+                "fund_nav": "4.6569",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510260",
+            "cell": {
+                "fund_id": "510260",
+                "fund_nm": "新兴ETF",
+                "index_id": "000067",
+                "index_nm": "上证新兴",
+                "index_increase_rt": "1.64%",
+                "price": "1.100",
+                "volume": "94.44",
+                "last_time": "15:02:48",
+                "increase_rt": "0.92%",
+                "estimate_value": "1.1313",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-2.73%",
+                "fund_nav": "1.1300",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510270",
+            "cell": {
+                "fund_id": "510270",
+                "fund_nm": "国企ETF",
+                "index_id": "000056",
+                "index_nm": "上证国企",
+                "index_increase_rt": "1.04%",
+                "price": "0.964",
+                "volume": "5.14",
+                "last_time": "15:02:48",
+                "increase_rt": "-0.62%",
+                "estimate_value": "0.9710",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-0.73%",
+                "fund_nav": "0.9710",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510280",
+            "cell": {
+                "fund_id": "510280",
+                "fund_nm": "成长ETF",
+                "index_id": "000028",
+                "index_nm": "180成长",
+                "index_increase_rt": "0.92%",
+                "price": "1.215",
+                "volume": "0.04",
+                "last_time": "15:02:48",
+                "increase_rt": "0.00%",
+                "estimate_value": "1.2332",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-1.40%",
+                "fund_nav": "1.2320",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510290",
+            "cell": {
+                "fund_id": "510290",
+                "fund_nm": "380ETF",
+                "index_id": "000009",
+                "index_nm": "上证380",
+                "index_increase_rt": "0.30%",
+                "price": "1.467",
+                "volume": "142.25",
+                "last_time": "15:02:48",
+                "increase_rt": "0.41%",
+                "estimate_value": "1.4834",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-1.15%",
+                "fund_nav": "1.4838",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510300",
+            "cell": {
+                "fund_id": "510300",
+                "fund_nm": "300ETF",
+                "index_id": "399300",
+                "index_nm": "沪深300",
+                "index_increase_rt": "0.77%",
+                "price": "3.221",
+                "volume": "16190.52",
+                "last_time": "15:02:48",
+                "increase_rt": "0.69%",
+                "estimate_value": "3.2501",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-0.90%",
+                "fund_nav": "3.2499",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510310",
+            "cell": {
+                "fund_id": "510310",
+                "fund_nm": "HS300ETF",
+                "index_id": "000300",
+                "index_nm": "沪深300",
+                "index_increase_rt": "0.76%",
+                "price": "1.303",
+                "volume": "87.24",
+                "last_time": "15:02:48",
+                "increase_rt": "0.31%",
+                "estimate_value": "1.3051",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-0.18%",
+                "fund_nav": "1.3053",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510330",
+            "cell": {
+                "fund_id": "510330",
+                "fund_nm": "华夏300",
+                "index_id": "399300",
+                "index_nm": "沪深300",
+                "index_increase_rt": "0.77%",
+                "price": "3.233",
+                "volume": "99.00",
+                "last_time": "15:02:48",
+                "increase_rt": "1.03%",
+                "estimate_value": "3.2855",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-1.69%",
+                "fund_nav": "3.2877",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510360",
+            "cell": {
+                "fund_id": "510360",
+                "fund_nm": "广发300",
+                "index_id": "399300",
+                "index_nm": "沪深300",
+                "index_increase_rt": "0.77%",
+                "price": "0.937",
+                "volume": "17.41",
+                "last_time": "15:02:48",
+                "increase_rt": "0.43%",
+                "estimate_value": "0.9496",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-1.36%",
+                "fund_nav": "0.9497",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510410",
+            "cell": {
+                "fund_id": "510410",
+                "fund_nm": "资源ETF",
+                "index_id": "000068",
+                "index_nm": "上证资源",
+                "index_increase_rt": "0.33%",
+                "price": "0.633",
+                "volume": "16.47",
+                "last_time": "15:02:48",
+                "increase_rt": "0.80%",
+                "estimate_value": "0.6251",
+                "last_est_time": "23:50:02",
+                "discount_rt": "1.25%",
+                "fund_nav": "0.6251",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510420",
+            "cell": {
+                "fund_id": "510420",
+                "fund_nm": "180EWETF",
+                "index_id": "000051",
+                "index_nm": "180等权",
+                "index_increase_rt": "0.68%",
+                "price": "1.439",
+                "volume": "9.68",
+                "last_time": "15:02:48",
+                "increase_rt": "0.49%",
+                "estimate_value": "1.4427",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-0.28%",
+                "fund_nav": "1.4430",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510430",
+            "cell": {
+                "fund_id": "510430",
+                "fund_nm": "50等权",
+                "index_id": "000050",
+                "index_nm": "50等权",
+                "index_increase_rt": "0.72%",
+                "price": "1.243",
+                "volume": "0.00",
+                "last_time": "15:02:48",
+                "increase_rt": "0.00%",
+                "estimate_value": "1.3063",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-5.07%",
+                "fund_nav": "1.3060",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510440",
+            "cell": {
+                "fund_id": "510440",
+                "fund_nm": "500沪市",
+                "index_id": "000802",
+                "index_nm": "500沪市",
+                "index_increase_rt": "0.34%",
+                "price": "1.773",
+                "volume": "0.00",
+                "last_time": "15:02:48",
+                "increase_rt": "0.00%",
+                "estimate_value": "1.7961",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-1.24%",
+                "fund_nav": "1.7950",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510450",
+            "cell": {
+                "fund_id": "510450",
+                "fund_nm": "180高ETF",
+                "index_id": "000135",
+                "index_nm": "180高贝",
+                "index_increase_rt": "0.72%",
+                "price": "1.540",
+                "volume": "24.68",
+                "last_time": "15:02:48",
+                "increase_rt": "0.00%",
+                "estimate_value": "1.5910",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-3.30%",
+                "fund_nav": "1.5908",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510500",
+            "cell": {
+                "fund_id": "510500",
+                "fund_nm": "500ETF",
+                "index_id": "000905",
+                "index_nm": "中证500",
+                "index_increase_rt": "0.33%",
+                "price": "6.231",
+                "volume": "3724.85",
+                "last_time": "15:02:48",
+                "increase_rt": "0.10%",
+                "estimate_value": "6.2752",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-0.71%",
+                "fund_nav": "6.2751",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510510",
+            "cell": {
+                "fund_id": "510510",
+                "fund_nm": "广发500",
+                "index_id": "000905",
+                "index_nm": "中证500",
+                "index_increase_rt": "0.33%",
+                "price": "1.654",
+                "volume": "94.13",
+                "last_time": "15:02:48",
+                "increase_rt": "0.18%",
+                "estimate_value": "1.6898",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-2.13%",
+                "fund_nav": "1.6893",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510520",
+            "cell": {
+                "fund_id": "510520",
+                "fund_nm": "诺安500",
+                "index_id": "000905",
+                "index_nm": "中证500",
+                "index_increase_rt": "0.33%",
+                "price": "1.465",
+                "volume": "0.15",
+                "last_time": "15:02:48",
+                "increase_rt": "0.00%",
+                "estimate_value": "1.5191",
+                "last_est_time": "23:50:02",
+                "discount_rt": "-3.75%",
+                "fund_nav": "1.5200",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510560",
+            "cell": {
+                "fund_id": "510560",
+                "fund_nm": "国寿500",
+                "index_id": "000905",
+                "index_nm": "中证500",
+                "index_increase_rt": "0.33%",
+                "price": "1.200",
+                "volume": "0.21",
+                "last_time": "15:02:48",
+                "increase_rt": "0.42%",
+                "estimate_value": "1.2516",
+                "last_est_time": "23:50:03",
+                "discount_rt": "-4.30%",
+                "fund_nav": "1.2516",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510580",
+            "cell": {
+                "fund_id": "510580",
+                "fund_nm": "ZZ500ETF",
+                "index_id": "000905",
+                "index_nm": "中证500",
+                "index_increase_rt": "0.33%",
+                "price": "6.238",
+                "volume": "82.46",
+                "last_time": "15:02:48",
+                "increase_rt": "1.75%",
+                "estimate_value": "6.2187",
+                "last_est_time": "23:50:03",
+                "discount_rt": "0.33%",
+                "fund_nav": "6.2172",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510610",
+            "cell": {
+                "fund_id": "510610",
+                "fund_nm": "能源行业",
+                "index_id": "000032",
+                "index_nm": "上证能源",
+                "index_increase_rt": "0.26%",
+                "price": "0.819",
+                "volume": "8.26",
+                "last_time": "15:02:48",
+                "increase_rt": "-0.24%",
+                "estimate_value": "0.8208",
+                "last_est_time": "23:50:03",
+                "discount_rt": "-0.20%",
+                "fund_nav": "0.8206",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510620",
+            "cell": {
+                "fund_id": "510620",
+                "fund_nm": "材料行业",
+                "index_id": "000033",
+                "index_nm": "上证材料",
+                "index_increase_rt": "0.40%",
+                "price": "1.007",
+                "volume": "2.94",
+                "last_time": "15:02:48",
+                "increase_rt": "0.00%",
+                "estimate_value": "1.0279",
+                "last_est_time": "23:50:03",
+                "discount_rt": "-2.09%",
+                "fund_nav": "1.0280",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510630",
+            "cell": {
+                "fund_id": "510630",
+                "fund_nm": "消费行业",
+                "index_id": "000036",
+                "index_nm": "上证消费",
+                "index_increase_rt": "0.09%",
+                "price": "1.393",
+                "volume": "5.00",
+                "last_time": "15:02:48",
+                "increase_rt": "0.43%",
+                "estimate_value": "1.3906",
+                "last_est_time": "23:50:03",
+                "discount_rt": "0.19%",
+                "fund_nav": "1.3904",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510650",
+            "cell": {
+                "fund_id": "510650",
+                "fund_nm": "金融行业",
+                "index_id": "000038",
+                "index_nm": "上证金融",
+                "index_increase_rt": "0.80%",
+                "price": "1.320",
+                "volume": "30.91",
+                "last_time": "15:02:48",
+                "increase_rt": "1.23%",
+                "estimate_value": "1.3206",
+                "last_est_time": "23:50:03",
+                "discount_rt": "-0.04%",
+                "fund_nav": "1.3205",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510660",
+            "cell": {
+                "fund_id": "510660",
+                "fund_nm": "医药行业",
+                "index_id": "000037",
+                "index_nm": "上证医药",
+                "index_increase_rt": "-0.05%",
+                "price": "1.357",
+                "volume": "42.62",
+                "last_time": "15:02:48",
+                "increase_rt": "0.44%",
+                "estimate_value": "1.3546",
+                "last_est_time": "23:50:03",
+                "discount_rt": "0.15%",
+                "fund_nav": "1.3549",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510680",
+            "cell": {
+                "fund_id": "510680",
+                "fund_nm": "万家380",
+                "index_id": "000009",
+                "index_nm": "上证380",
+                "index_increase_rt": "0.30%",
+                "price": "1.357",
+                "volume": "8.16",
+                "last_time": "15:02:48",
+                "increase_rt": "-0.22%",
+                "estimate_value": "1.4337",
+                "last_est_time": "23:50:03",
+                "discount_rt": "-5.64%",
+                "fund_nav": "1.4335",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510700",
+            "cell": {
+                "fund_id": "510700",
+                "fund_nm": "百强ETF",
+                "index_id": "000155",
+                "index_nm": "市值百强",
+                "index_increase_rt": "0.83%",
+                "price": "2.380",
+                "volume": "2.22",
+                "last_time": "15:02:48",
+                "increase_rt": "1.45%",
+                "estimate_value": "2.4512",
+                "last_est_time": "23:50:03",
+                "discount_rt": "-2.48%",
+                "fund_nav": "2.4390",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510710",
+            "cell": {
+                "fund_id": "510710",
+                "fund_nm": "上50ETF",
+                "index_id": "000016",
+                "index_nm": "上证50",
+                "index_increase_rt": "0.89%",
+                "price": "2.129",
+                "volume": "75.88",
+                "last_time": "15:02:48",
+                "increase_rt": "1.14%",
+                "estimate_value": "2.1249",
+                "last_est_time": "23:50:03",
+                "discount_rt": "0.21%",
+                "fund_nav": "2.1246",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510880",
+            "cell": {
+                "fund_id": "510880",
+                "fund_nm": "红利ETF",
+                "index_id": "000015",
+                "index_nm": "红利指数",
+                "index_increase_rt": "0.88%",
+                "price": "2.491",
+                "volume": "95.13",
+                "last_time": "15:02:48",
+                "increase_rt": "0.52%",
+                "estimate_value": "2.4857",
+                "last_est_time": "23:50:03",
+                "discount_rt": "0.20%",
+                "fund_nav": "2.4860",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "510900",
+            "cell": {
+                "fund_id": "510900",
+                "fund_nm": "H股ETF",
+                "index_id": "HSCEI",
+                "index_nm": "恒生国企",
+                "index_increase_rt": "4.66%",
+                "price": "0.947",
+                "volume": "18850.83",
+                "last_time": "15:02:48",
+                "increase_rt": "1.61%",
+                "estimate_value": "0.9502",
+                "last_est_time": "23:50:03",
+                "discount_rt": "0.21%",
+                "fund_nav": "0.9450",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "511010",
+            "cell": {
+                "fund_id": "511010",
+                "fund_nm": "国债ETF",
+                "index_id": "000140",
+                "index_nm": "5年国债",
+                "index_increase_rt": "-",
+                "price": "108.691",
+                "volume": "22503.45",
+                "last_time": "15:02:48",
+                "increase_rt": "0.24%",
+                "estimate_value": "108.6900",
+                "last_est_time": "23:50:03",
+                "discount_rt": "-0.03%",
+                "fund_nav": "108.7220",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "511210",
+            "cell": {
+                "fund_id": "511210",
+                "fund_nm": "企债ETF",
+                "index_id": "000061",
+                "index_nm": "沪企债30",
+                "index_increase_rt": "0.09%",
+                "price": "113.195",
+                "volume": "22.53",
+                "last_time": "15:02:48",
+                "increase_rt": "0.08%",
+                "estimate_value": "113.1124",
+                "last_est_time": "23:50:03",
+                "discount_rt": "0.10%",
+                "fund_nav": "113.0858",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "512010",
+            "cell": {
+                "fund_id": "512010",
+                "fund_nm": "医药ETF",
+                "index_id": "000913",
+                "index_nm": "300医药",
+                "index_increase_rt": "0.53%",
+                "price": "1.087",
+                "volume": "10.94",
+                "last_time": "15:02:48",
+                "increase_rt": "-0.82%",
+                "estimate_value": "1.1043",
+                "last_est_time": "23:50:03",
+                "discount_rt": "-1.47%",
+                "fund_nav": "1.1030",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "512110",
+            "cell": {
+                "fund_id": "512110",
+                "fund_nm": "中证地产",
+                "index_id": "000816",
+                "index_nm": "细分地产",
+                "index_increase_rt": "0.83%",
+                "price": "1.690",
+                "volume": "2.72",
+                "last_time": "15:02:48",
+                "increase_rt": "7.64%",
+                "estimate_value": "1.6294",
+                "last_est_time": "23:50:03",
+                "discount_rt": "4.26%",
+                "fund_nav": "1.6180",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "512120",
+            "cell": {
+                "fund_id": "512120",
+                "fund_nm": "中证医药",
+                "index_id": "000814",
+                "index_nm": "细分医药",
+                "index_increase_rt": "0.08%",
+                "price": "1.219",
+                "volume": "0.41",
+                "last_time": "15:02:48",
+                "increase_rt": "-0.08%",
+                "estimate_value": "1.2120",
+                "last_est_time": "23:50:03",
+                "discount_rt": "0.57%",
+                "fund_nav": "1.2120",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "512230",
+            "cell": {
+                "fund_id": "512230",
+                "fund_nm": "景顺医药",
+                "index_id": "000933",
+                "index_nm": "中证医药",
+                "index_increase_rt": "0.30%",
+                "price": "1.246",
+                "volume": "0.78",
+                "last_time": "15:02:48",
+                "increase_rt": "0.32%",
+                "estimate_value": "1.2582",
+                "last_est_time": "23:50:03",
+                "discount_rt": "-0.95%",
+                "fund_nav": "1.2578",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "512500",
+            "cell": {
+                "fund_id": "512500",
+                "fund_nm": "中证500",
+                "index_id": "000905",
+                "index_nm": "中证500",
+                "index_increase_rt": "0.33%",
+                "price": "2.866",
+                "volume": "147.16",
+                "last_time": "15:02:48",
+                "increase_rt": "0.14%",
+                "estimate_value": "2.9403",
+                "last_est_time": "23:50:03",
+                "discount_rt": "-2.59%",
+                "fund_nav": "2.9402",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "512510",
+            "cell": {
+                "fund_id": "512510",
+                "fund_nm": "ETF500",
+                "index_id": "000905",
+                "index_nm": "中证500",
+                "index_increase_rt": "0.33%",
+                "price": "1.202",
+                "volume": "14.44",
+                "last_time": "15:02:48",
+                "increase_rt": "0.25%",
+                "estimate_value": "1.2222",
+                "last_est_time": "23:50:03",
+                "discount_rt": "-1.67%",
+                "fund_nav": "1.2221",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "512600",
+            "cell": {
+                "fund_id": "512600",
+                "fund_nm": "主要消费",
+                "index_id": "000932",
+                "index_nm": "中证消费",
+                "index_increase_rt": "0.14%",
+                "price": "1.265",
+                "volume": "5.52",
+                "last_time": "15:02:48",
+                "increase_rt": "0.00%",
+                "estimate_value": "1.2728",
+                "last_est_time": "23:50:03",
+                "discount_rt": "-0.53%",
+                "fund_nav": "1.2717",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "512610",
+            "cell": {
+                "fund_id": "512610",
+                "fund_nm": "医药卫生",
+                "index_id": "000933",
+                "index_nm": "中证医药",
+                "index_increase_rt": "0.30%",
+                "price": "1.372",
+                "volume": "7.06",
+                "last_time": "15:02:48",
+                "increase_rt": "0.29%",
+                "estimate_value": "1.3780",
+                "last_est_time": "23:50:03",
+                "discount_rt": "-0.40%",
+                "fund_nav": "1.3775",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "512640",
+            "cell": {
+                "fund_id": "512640",
+                "fund_nm": "金融地产",
+                "index_id": "000934",
+                "index_nm": "中证金融",
+                "index_increase_rt": "0.76%",
+                "price": "1.459",
+                "volume": "0.95",
+                "last_time": "15:02:48",
+                "increase_rt": "1.25%",
+                "estimate_value": "1.4647",
+                "last_est_time": "23:50:03",
+                "discount_rt": "-0.39%",
+                "fund_nav": "1.4647",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "513600",
+            "cell": {
+                "fund_id": "513600",
+                "fund_nm": "恒指ETF",
+                "index_id": "HSI",
+                "index_nm": "恒生指数",
+                "index_increase_rt": "3.13%",
+                "price": "1.749",
+                "volume": "53.42",
+                "last_time": "15:02:48",
+                "increase_rt": "1.39%",
+                "estimate_value": "1.7565",
+                "last_est_time": "23:50:03",
+                "discount_rt": "-0.05%",
+                "fund_nav": "1.7499",
+                "nav_dt": "2015-09-30"
+            }
+        },
+        {
+            "id": "513660",
+            "cell": {
+                "fund_id": "513660",
+                "fund_nm": "恒生通",
+                "index_id": "HSI",
+                "index_nm": "恒生指数",
+                "index_increase_rt": "3.13%",
+                "price": "1.712",
+                "volume": "121.18",
+                "last_time": "15:02:48",
+                "increase_rt": "1.18%",
+                "estimate_value": "1.7817",
+                "last_est_time": "15:33:52",
+                "discount_rt": "-4.07%",
+                "fund_nav": "1.7533",
+                "nav_dt": "2015-09-25"
+            }
+        }
+    ],
+    "total": 99
+}

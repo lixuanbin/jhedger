@@ -48,4 +48,21 @@ public class CrawlerHelper {
 			return false;
 		}
 	}
+
+	/**
+	 * Return a new date object with given time params.
+	 * 
+	 * @param date
+	 * @param hour
+	 * @param minute
+	 * @param second
+	 * @return
+	 */
+	public static Date setTimeOfDate(Date date, int hour, int minute, int second) {
+		Calendar cal = new Calendar.Builder().setInstant(date).build();
+		cal.set(Calendar.HOUR_OF_DAY, hour);
+		cal.set(Calendar.MINUTE, minute);
+		cal.set(Calendar.SECOND, second);
+		return cal.getTime();
+	}
 }

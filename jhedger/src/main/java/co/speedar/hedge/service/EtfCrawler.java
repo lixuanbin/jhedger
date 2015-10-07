@@ -6,6 +6,8 @@ package co.speedar.hedge.service;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -25,16 +27,26 @@ import co.speedar.hedge.util.SwingUtil;
 @Service
 public class EtfCrawler {
 	protected static final Logger log = Logger.getLogger(EtfCrawler.class);
-	protected static final String hostPath = "http://www.jisilu.cn/jisiludata/etf.php";
+	// These params should be configurable, tune them yourself!
 	protected static final int volumnFence = 500;
 	protected static final float discountRateFence = -3;
 	protected static final float increaseRateFence = 9;
+	private Set<String> hasNotifiedSet = new ConcurrentSkipListSet<>();
 
 	@Scheduled(cron = "1 1/3 9-11,13-14 * * MON-FRI")
 	public void execute() {
 		Date fireDate = new Date();
 		try {
 			craw(fireDate);
+		} catch (Exception e) {
+			log.error(e, e);
+		}
+	}
+
+	@Scheduled(cron = "12 28 9 * * MON-FRI")
+	public void clearNotifiedSet() {
+		try {
+			hasNotifiedSet.clear();
 		} catch (Exception e) {
 			log.error(e, e);
 		}
@@ -67,7 +79,7 @@ public class EtfCrawler {
 			String fundName = cell.getString("fund_nm");
 			float price = Float.valueOf(cell.getString("price"));
 			float volume = Float.valueOf(cell.getString("volume"));
-			if (volume < volumnFence) {
+			if (volume < volumnFence || hasNotifiedSet.contains(fundId)) {
 				continue;
 			}
 			float increaseRate = Float.valueOf(StringUtils.removeEnd(cell.getString("increase_rt"), "%"));
@@ -77,6 +89,7 @@ public class EtfCrawler {
 			float indexIncreaseRate = StringUtils.length(cell.getString("index_increase_rt")) > 1
 					? Float.valueOf(StringUtils.removeEnd(cell.getString("index_increase_rt"), "%")) : 0;
 			if (discountRate < discountRateFence && increaseRate < increaseRateFence) {
+				hasNotifiedSet.add(fundId);
 				sb.append(String.format("%s, %s, %.2f%%, %.2f%%, %.3f\n%s, %s, %.2f%%;\n\n", fundId, fundName,
 						increaseRate, discountRate, price, indexId, indexName, indexIncreaseRate));
 			}
@@ -108,6 +121,8 @@ public class EtfCrawler {
 		headerMap.put("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
 		headerMap.put("Cache-Control", "no-cache");
 		headerMap.put("Pragma", "no-cache");
+		// Find yourself a better source.
+		String hostPath = "http://www.jisilu.cn/jisiludata/etf.php";
 		String json = HttpClientUtil.getStringFromHost(hostPath, paramMap, headerMap, "utf-8");
 		return json;
 	}
