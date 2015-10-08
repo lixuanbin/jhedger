@@ -24,20 +24,25 @@ public class CrawlerHelper {
 	 * @return
 	 */
 	public static boolean isNotOpen(Date nowDate) {
-		Calendar now = new Calendar.Builder().setInstant(nowDate).build();
-		Calendar nineThirty = new Calendar.Builder().setInstant(nowDate).build();
+		Calendar now = Calendar.getInstance();
+		now.setTime(nowDate);
+		Calendar nineThirty = Calendar.getInstance();
+		nineThirty.setTime(nowDate);
 		nineThirty.set(Calendar.HOUR_OF_DAY, 9);
 		nineThirty.set(Calendar.MINUTE, 30);
 		nineThirty.set(Calendar.SECOND, 0);
-		Calendar elevenThirty = new Calendar.Builder().setInstant(nowDate).build();
+		Calendar elevenThirty = Calendar.getInstance();
+		elevenThirty.setTime(nowDate);
 		elevenThirty.set(Calendar.HOUR_OF_DAY, 11);
 		elevenThirty.set(Calendar.MINUTE, 30);
 		elevenThirty.set(Calendar.SECOND, 0);
-		Calendar thirteen = new Calendar.Builder().setInstant(nowDate).build();
+		Calendar thirteen = Calendar.getInstance();
+		thirteen.setTime(nowDate);
 		thirteen.set(Calendar.HOUR_OF_DAY, 13);
 		thirteen.set(Calendar.MINUTE, 0);
 		thirteen.set(Calendar.SECOND, 0);
-		Calendar fifteen = new Calendar.Builder().setInstant(nowDate).build();
+		Calendar fifteen = Calendar.getInstance();
+		fifteen.setTime(nowDate);
 		fifteen.set(Calendar.HOUR_OF_DAY, 15);
 		fifteen.set(Calendar.MINUTE, 0);
 		fifteen.set(Calendar.SECOND, 0);
@@ -59,7 +64,8 @@ public class CrawlerHelper {
 	 * @return
 	 */
 	public static Date setTimeOfDate(Date date, int hour, int minute, int second) {
-		Calendar cal = new Calendar.Builder().setInstant(date).build();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
 		cal.set(Calendar.HOUR_OF_DAY, hour);
 		cal.set(Calendar.MINUTE, minute);
 		cal.set(Calendar.SECOND, second);
