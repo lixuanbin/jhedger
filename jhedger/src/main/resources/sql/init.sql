@@ -49,3 +49,5 @@ partition p2018 values less than (2018),
 partition p2019 values less than (2019),
 partition p2020 values less than (2020)
 );
+alter table hedger.etf_detail add column updateTime timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+alter table hedger.lof_fundb_detail add column updateTime timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
