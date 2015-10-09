@@ -32,7 +32,7 @@ public class LofDao {
 	 * 
 	 * @param lofList
 	 */
-	public void batchInsertEtfDetail(final List<Map<String, Object>> lofList) {
+	public void batchInsertLofDetail(final List<Map<String, Object>> lofList) {
 		jdbcTemplate.batchUpdate(batchInsertLofDetailSql, new BatchPreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
@@ -53,7 +53,6 @@ public class LofDao {
 				ps.setString(14, String.valueOf(map.get("fundb_index_id")));
 				ps.setFloat(15, (Float) map.get("fundb_index_increase_rt"));
 				ps.setFloat(16, (Float) map.get("fundb_base_est_dis_rt"));
-				ps.setFloat(10, Float.valueOf((String) map.get("discount_rt")));
 			}
 
 			@Override

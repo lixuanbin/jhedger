@@ -5,6 +5,7 @@ package co.speedar.hedge.service;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -13,9 +14,11 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import co.speedar.hedge.dao.LofDao;
 import co.speedar.hedge.util.CrawlerHelper;
 import co.speedar.hedge.util.HttpClientUtil;
 import co.speedar.hedge.util.SwingUtil;
@@ -35,6 +38,9 @@ public class LofCrawler {
 	protected static final float fundbIncreaseRateFence = 9;
 	protected static final float fundbLowerRecalcRateFence = 10;
 	private Set<String> hasNotifiedSet = new ConcurrentSkipListSet<>();
+	
+	@Autowired
+	private LofDao dao;
 
 	@Scheduled(cron = "1 1/3 9-11,13-14 * * MON-FRI")
 	public void execute() {
@@ -65,6 +71,8 @@ public class LofCrawler {
 			String json = getLofJson(fireDate);
 			log.info(json);
 			checkAndNotify(json, fireDate);
+			List<Map<String, Object>> lofList = CrawlerHelper.buildLofListFromJson(fireDate, json);
+			dao.batchInsertLofDetail(lofList);
 		}
 	}
 
@@ -100,7 +108,7 @@ public class LofCrawler {
 			if (baseDiscountRate < lowerDiscountRate && fundbIncreaseRate < fundbIncreaseRateFence
 					&& fundbLowerRecalcRate > fundbLowerRecalcRateFence) {
 				hasNotifiedSet.add(fundbId);
-				lowerSb.append(String.format("%s, %s, %.2f%%, %.2f%%, %.2f%%, %.3f\n\t%s, %s, %.2f%%\n\n", fundbId,
+				lowerSb.append(String.format("%s, %s, 涨幅：%.2f%%, 溢价率：%.2f%%, 母基溢价率：%.2f%%, 现价：%.3f\n\t%s, %s, 涨幅：%.2f%%\n\n", fundbId,
 						fundbName, fundbIncreaseRate, fundbDiscountRate, baseDiscountRate, currentPrice, indexId,
 						indexName, indexIncreaseRate));
 			}
@@ -108,14 +116,14 @@ public class LofCrawler {
 					&& fireDate.after(CrawlerHelper.setTimeOfDate(fireDate, 14, 30, 0))) {
 				// 两点半后才考虑做溢价
 				hasNotifiedSet.add(fundbId);
-				upperSb.append(String.format("%s, %s, %.2f%%, %.2f%%, %.2f%%, %.3f\n\t%s, %s, %.2f%%\n\n", fundbId,
+				upperSb.append(String.format("%s, %s, 涨幅：%.2f%%, 溢价率：%.2f%%, 母基溢价率：%.2f%%, 现价：%.3f\n\t%s, %s, 涨幅：%.2f%%\n\n", fundbId,
 						fundbName, fundbIncreaseRate, fundbDiscountRate, baseDiscountRate, currentPrice, indexId,
 						indexName, indexIncreaseRate));
 			}
 		}
 		if (StringUtils.isNotBlank(lowerSb.toString())) {
 			log.info(lowerSb.toString());
-			final String title = "Fundb lower flow!" + CrawlerHelper.sdf.format(new Date());
+			final String title = "Fundb lower flow! " + CrawlerHelper.sdf.format(new Date());
 			final String content = lowerSb.toString();
 			Thread thread = new Thread(new Runnable() {
 				public void run() {
@@ -126,7 +134,7 @@ public class LofCrawler {
 		}
 		if (StringUtils.isNotBlank(upperSb.toString())) {
 			log.info(upperSb.toString());
-			final String title = "Fundb upper flow!" + CrawlerHelper.sdf.format(new Date());
+			final String title = "Fundb upper flow! " + CrawlerHelper.sdf.format(new Date());
 			final String content = upperSb.toString();
 			Thread thread = new Thread(new Runnable() {
 				public void run() {

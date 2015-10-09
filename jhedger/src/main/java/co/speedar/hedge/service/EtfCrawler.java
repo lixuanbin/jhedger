@@ -5,6 +5,7 @@ package co.speedar.hedge.service;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -13,9 +14,11 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import co.speedar.hedge.dao.EtfDao;
 import co.speedar.hedge.util.CrawlerHelper;
 import co.speedar.hedge.util.HttpClientUtil;
 import co.speedar.hedge.util.SwingUtil;
@@ -32,6 +35,9 @@ public class EtfCrawler {
 	protected static final float discountRateFence = -3;
 	protected static final float increaseRateFence = 9;
 	private Set<String> hasNotifiedSet = new ConcurrentSkipListSet<>();
+	
+	@Autowired
+	private EtfDao dao;
 
 	@Scheduled(cron = "1 1/3 9-11,13-14 * * MON-FRI")
 	public void execute() {
@@ -62,6 +68,8 @@ public class EtfCrawler {
 			String json = getEtfJson(fireDate);
 			log.info(json);
 			checkAndNotify(json);
+			List<Map<String, Object>> etfList = CrawlerHelper.buildEtfListFromJson(fireDate, json);
+			dao.batchInsertEtfDetail(etfList);
 		}
 	}
 
@@ -90,13 +98,13 @@ public class EtfCrawler {
 					? Float.valueOf(StringUtils.removeEnd(cell.getString("index_increase_rt"), "%")) : 0;
 			if (discountRate < discountRateFence && increaseRate < increaseRateFence) {
 				hasNotifiedSet.add(fundId);
-				sb.append(String.format("%s, %s, %.2f%%, %.2f%%, %.3f\n%s, %s, %.2f%%;\n\n", fundId, fundName,
+				sb.append(String.format("%s, %s, 涨幅：%.2f%%, 溢价率：%.2f%%, 现价：%.3f\n%s, %s, 涨幅：%.2f%%;\n\n", fundId, fundName,
 						increaseRate, discountRate, price, indexId, indexName, indexIncreaseRate));
 			}
 		}
 		if (StringUtils.isNotBlank(sb.toString())) {
 			log.info(sb.toString());
-			final String title = "etf lower flow!" + CrawlerHelper.sdf.format(new Date());
+			final String title = "etf lower flow! " + CrawlerHelper.sdf.format(new Date());
 			final String content = sb.toString();
 			Thread thread = new Thread(new Runnable() {
 				public void run() {
