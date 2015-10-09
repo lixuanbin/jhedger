@@ -52,8 +52,8 @@ public class CrawlerHelper {
 		Calendar fifteen = Calendar.getInstance();
 		fifteen.setTime(nowDate);
 		fifteen.set(Calendar.HOUR_OF_DAY, 15);
-		fifteen.set(Calendar.MINUTE, 1);
-		fifteen.set(Calendar.SECOND, 0);
+		fifteen.set(Calendar.MINUTE, 3);
+		fifteen.set(Calendar.SECOND, 3);
 		if (now.get(Calendar.DAY_OF_WEEK) == 1 || now.get(Calendar.DAY_OF_WEEK) == 7
 				|| now.before(nineThirty) || (now.after(elevenThirty) && now.before(thirteen))
 				|| now.after(fifteen)) {

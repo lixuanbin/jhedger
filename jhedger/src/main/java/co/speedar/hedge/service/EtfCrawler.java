@@ -48,6 +48,16 @@ public class EtfCrawler {
 			log.error(e, e);
 		}
 	}
+	
+	@Scheduled(cron = "1 1 15 * * MON-FRI")
+	public void lastShot() {
+		Date fireDate = new Date();
+		try {
+			craw(fireDate);
+		} catch (Exception e) {
+			log.error(e, e);
+		}
+	}
 
 	@Scheduled(cron = "12 28 9 * * MON-FRI")
 	public void clearNotifiedSet() {
