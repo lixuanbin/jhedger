@@ -22,7 +22,7 @@ public class EtfDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	protected static final String batchInsertEtfDetailSql = "replace INTO `hedger`.`etf_detail`(`fund_id`,`nav_datetime`,"
+	protected static final String batchInsertEtfDetailSql = "insert ignore INTO `hedger`.`etf_detail`(`fund_id`,`nav_datetime`,"
 			+ "`fund_name`,`index_id`,`price`,`volume`,`increase_rt`,`index_increase_rt`,`estimate_value`,`discount_rt`)"
 			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 

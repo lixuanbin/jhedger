@@ -31,4 +31,18 @@ public class CrawlerTest {
 		etfCrawler.craw(fireDate);
 		System.out.println(fireDate);
 	}
+	
+	@Test
+	public void testGetEtfJson() {
+		Date fireDate = new GregorianCalendar(2015, 9, 10, 12, 40, 30).getTime();
+		String json = etfCrawler.getEtfJson(fireDate);
+		System.out.println(json);
+	}
+	
+	@Test
+	public void testGetLofJson() {
+		Date fireDate = new GregorianCalendar(2015, 9, 10, 12, 40, 30).getTime();
+		String json = lofCrawler.getLofJson(fireDate);
+		System.out.println(json);
+	}
 }

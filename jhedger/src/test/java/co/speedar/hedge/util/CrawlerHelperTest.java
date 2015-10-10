@@ -27,7 +27,7 @@ public class CrawlerHelperTest {
 		now = new GregorianCalendar(2015, 9, 8, 8, 30, 30).getTime();
 		System.out.println(CrawlerHelper.sdf.format(now));
 		assertTrue(CrawlerHelper.sdf.format(now) + " should not be trading time.", CrawlerHelper.isNotOpen(now));
-		now = new GregorianCalendar(2015, 9, 8, 15, 3, 30).getTime();
+		now = new GregorianCalendar(2015, 9, 8, 15, 6, 30).getTime();
 		System.out.println(CrawlerHelper.sdf.format(now));
 		assertTrue(CrawlerHelper.sdf.format(now) + " should not be trading time.", CrawlerHelper.isNotOpen(now));
 	}

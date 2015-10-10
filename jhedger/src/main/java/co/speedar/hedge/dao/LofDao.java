@@ -22,7 +22,7 @@ public class LofDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	protected static final String batchInsertLofDetailSql = "replace INTO `hedger`.`lof_fundb_detail`(`fundb_id`,`fundb_name`,"
+	protected static final String batchInsertLofDetailSql = "insert ignore INTO `hedger`.`lof_fundb_detail`(`fundb_id`,`fundb_name`,"
 			+ "`fundb_current_price`,`fundb_volume`,`fundb_increase_rt`,`fundb_value`,`fundb_est_val`,`fundb_discount_rt`,"
 			+ "`fundb_price_leverage_rt`,`fundb_net_leverage_rt`,`fundb_lower_recalc_rt`,`fundb_nav_datetime`,`fundb_upper_recalc_rt`,"
 			+ "`fundb_index_id`,`fundb_index_increase_rt`,`fundb_base_est_dis_rt`)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";

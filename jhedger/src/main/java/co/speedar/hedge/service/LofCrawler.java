@@ -52,7 +52,7 @@ public class LofCrawler {
 		}
 	}
 	
-	@Scheduled(cron = "1 1 15 * * MON-FRI")
+	@Scheduled(cron = "1 3 15 * * MON-FRI")
 	public void lastShot() {
 		Date fireDate = new Date();
 		try {

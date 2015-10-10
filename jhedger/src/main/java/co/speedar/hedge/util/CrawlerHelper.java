@@ -52,7 +52,7 @@ public class CrawlerHelper {
 		Calendar fifteen = Calendar.getInstance();
 		fifteen.setTime(nowDate);
 		fifteen.set(Calendar.HOUR_OF_DAY, 15);
-		fifteen.set(Calendar.MINUTE, 3);
+		fifteen.set(Calendar.MINUTE, 5);
 		fifteen.set(Calendar.SECOND, 3);
 		if (now.get(Calendar.DAY_OF_WEEK) == 1 || now.get(Calendar.DAY_OF_WEEK) == 7
 				|| now.before(nineThirty) || (now.after(elevenThirty) && now.before(thirteen))
@@ -91,7 +91,7 @@ public class CrawlerHelper {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("fund_id", cell.getString("fund_id"));
 			String lastTime = cell.getString("last_time");
-			String date = dateFormat.format(fireDate);
+			String date = cell.getString("nav_dt");
 			map.put("nav_datetime", date + " " + lastTime);
 			map.put("fund_name", cell.getString("fund_nm"));
 			map.put("index_id", cell.getString("index_id"));
@@ -126,7 +126,7 @@ public class CrawlerHelper {
 			String fundbId = cell.getString("fundb_id");
 			map.put("fundb_id", fundbId);
 			String lastTime = cell.getString("last_time");
-			String date = dateFormat.format(fireDate);
+			String date = cell.getString("fundb_nav_dt");
 			map.put("fundb_nav_datetime", date + " " + lastTime);
 			String fundbName = cell.getString("fundb_name");
 			map.put("fundb_name", fundbName);
