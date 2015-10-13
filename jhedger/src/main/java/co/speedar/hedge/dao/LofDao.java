@@ -4,6 +4,7 @@
 package co.speedar.hedge.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -26,6 +28,9 @@ public class LofDao {
 			+ "`fundb_current_price`,`fundb_volume`,`fundb_increase_rt`,`fundb_value`,`fundb_est_val`,`fundb_discount_rt`,"
 			+ "`fundb_price_leverage_rt`,`fundb_net_leverage_rt`,`fundb_lower_recalc_rt`,`fundb_nav_datetime`,`fundb_upper_recalc_rt`,"
 			+ "`fundb_index_id`,`fundb_index_increase_rt`,`fundb_base_est_dis_rt`)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+	protected static final String lastTradeVolumeOver10MSql = "select distinct fundb_id from hedger.lof_fundb_detail where DATE(fundb_nav_datetime)="
+			+ "(select DATE(fundb_nav_datetime) as lastTradeDay from hedger.lof_fundb_detail where DATE(fundb_nav_datetime)<CURDATE()-1 order by updateTime desc limit 1) and fundb_volume>1000;";
 
 	/**
 	 * Insert a list of lof details.
@@ -58,6 +63,20 @@ public class LofDao {
 			@Override
 			public int getBatchSize() {
 				return lofList.size();
+			}
+		});
+	}
+
+	/**
+	 * 上个交易日成交量大于千万的基金id
+	 * 
+	 * @return
+	 */
+	public List<String> queryLastTradeVolumeOver10M() {
+		return jdbcTemplate.query(lastTradeVolumeOver10MSql, new RowMapper<String>() {
+			@Override
+			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+				return rs.getString("fundb_id");
 			}
 		});
 	}

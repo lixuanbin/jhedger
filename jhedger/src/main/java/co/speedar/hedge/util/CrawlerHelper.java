@@ -42,8 +42,8 @@ public class CrawlerHelper {
 		Calendar elevenThirty = Calendar.getInstance();
 		elevenThirty.setTime(nowDate);
 		elevenThirty.set(Calendar.HOUR_OF_DAY, 11);
-		elevenThirty.set(Calendar.MINUTE, 31);
-		elevenThirty.set(Calendar.SECOND, 0);
+		elevenThirty.set(Calendar.MINUTE, 33);
+		elevenThirty.set(Calendar.SECOND, 33);
 		Calendar thirteen = Calendar.getInstance();
 		thirteen.setTime(nowDate);
 		thirteen.set(Calendar.HOUR_OF_DAY, 13);

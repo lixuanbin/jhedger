@@ -4,6 +4,7 @@
 package co.speedar.hedge.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -25,6 +27,9 @@ public class EtfDao {
 	protected static final String batchInsertEtfDetailSql = "insert ignore INTO `hedger`.`etf_detail`(`fund_id`,`nav_datetime`,"
 			+ "`fund_name`,`index_id`,`price`,`volume`,`increase_rt`,`index_increase_rt`,`estimate_value`,`discount_rt`)"
 			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+	protected static final String lastTradeVolumeOver10MSql = "select distinct fund_id from hedger.etf_detail where DATE(nav_datetime)="
+			+ "(select DATE(nav_datetime) as lastTradeDay from hedger.etf_detail where DATE(nav_datetime)<CURDATE()-1 order by updateTime desc limit 1) and volume>1000";
 
 	/**
 	 * Insert a list of etf details.
@@ -51,6 +56,20 @@ public class EtfDao {
 			@Override
 			public int getBatchSize() {
 				return etfList.size();
+			}
+		});
+	}
+
+	/**
+	 * 上个交易日成交量大于千万的基金id
+	 * 
+	 * @return
+	 */
+	public List<String> queryLastTradeVolumeOver10M() {
+		return jdbcTemplate.query(lastTradeVolumeOver10MSql, new RowMapper<String>() {
+			@Override
+			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+				return rs.getString("fund_id");
 			}
 		});
 	}

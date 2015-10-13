@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -31,11 +33,21 @@ import co.speedar.hedge.util.SwingUtil;
 public class EtfCrawler {
 	protected static final Logger log = Logger.getLogger(EtfCrawler.class);
 	// These params should be configurable, tune them yourself!
-	protected static final int volumnFence = 500;
+	protected static final int volumnFence = 600;
 	protected static final float discountRateFence = -3;
 	protected static final float increaseRateFence = 9;
 	private Set<String> hasNotifiedSet = new ConcurrentSkipListSet<>();
-	
+	private List<String> lastTradeOver10MFunds;
+
+	@PostConstruct
+	public void init() {
+		try {
+			lastTradeOver10MFunds = dao.queryLastTradeVolumeOver10M();
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+		}
+	}
+
 	@Autowired
 	private EtfDao dao;
 
@@ -48,7 +60,7 @@ public class EtfCrawler {
 			log.error(e, e);
 		}
 	}
-	
+
 	@Scheduled(cron = "1 3 15 * * MON-FRI")
 	public void lastShot() {
 		Date fireDate = new Date();
@@ -97,19 +109,25 @@ public class EtfCrawler {
 			String fundName = cell.getString("fund_nm");
 			float price = Float.valueOf(cell.getString("price"));
 			float volume = Float.valueOf(cell.getString("volume"));
-			if (volume < volumnFence || hasNotifiedSet.contains(fundId)) {
-				continue;
-			}
-			float increaseRate = Float.valueOf(StringUtils.removeEnd(cell.getString("increase_rt"), "%"));
-			float discountRate = Float.valueOf(StringUtils.removeEnd(cell.getString("discount_rt"), "%"));
-			String indexId = cell.getString("index_id");
-			String indexName = cell.getString("index_nm");
-			float indexIncreaseRate = StringUtils.length(cell.getString("index_increase_rt")) > 1
-					? Float.valueOf(StringUtils.removeEnd(cell.getString("index_increase_rt"), "%")) : 0;
-			if (discountRate < discountRateFence && increaseRate < increaseRateFence) {
-				hasNotifiedSet.add(fundId);
-				sb.append(String.format("%s, %s, 涨幅：%.2f%%, 溢价率：%.2f%%, 现价：%.3f\n%s, %s, 涨幅：%.2f%%;\n\n", fundId, fundName,
-						increaseRate, discountRate, price, indexId, indexName, indexIncreaseRate));
+			if ((volume > volumnFence || (lastTradeOver10MFunds != null
+					&& !lastTradeOver10MFunds.isEmpty() && lastTradeOver10MFunds.contains(fundId)))
+					&& !hasNotifiedSet.contains(fundId)) {
+				float increaseRate = Float.valueOf(StringUtils.removeEnd(
+						cell.getString("increase_rt"), "%"));
+				float discountRate = Float.valueOf(StringUtils.removeEnd(
+						cell.getString("discount_rt"), "%"));
+				String indexId = cell.getString("index_id");
+				String indexName = cell.getString("index_nm");
+				float indexIncreaseRate = StringUtils.length(cell.getString("index_increase_rt")) > 1 ? Float
+						.valueOf(StringUtils.removeEnd(cell.getString("index_increase_rt"), "%"))
+						: 0;
+				if (discountRate < discountRateFence && increaseRate < increaseRateFence) {
+					hasNotifiedSet.add(fundId);
+					sb.append(String.format(
+							"%s, %s, 涨幅：%.2f%%, 溢价率：%.2f%%, 现价：%.3f\n%s, %s, 涨幅：%.2f%%;\n\n",
+							fundId, fundName, increaseRate, discountRate, price, indexId,
+							indexName, indexIncreaseRate));
+				}
 			}
 		}
 		if (StringUtils.isNotBlank(sb.toString())) {
@@ -132,8 +150,9 @@ public class EtfCrawler {
 		Map<String, String> paramMap = new HashMap<>();
 		paramMap.put("___t", String.valueOf(fireDate.getTime()));
 		Map<String, String> headerMap = new HashMap<>();
-		headerMap.put("User-Agent",
-				"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:37.0) Gecko/20100101 Firefox/37.0");
+		headerMap
+				.put("User-Agent",
+						"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:37.0) Gecko/20100101 Firefox/37.0");
 		headerMap.put("Accept", "application/json, text/javascript, */*; q=0.01");
 		headerMap.put("Accept-Language", "en-US,en;q=0.5");
 		headerMap.put("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");

@@ -37,4 +37,13 @@ public class EtfDaoTest {
 		dao.batchInsertEtfDetail(etfList);
 		IOUtils.closeQuietly(resource.getInputStream());
 	}
+	
+	@Test
+	public void testQueryLastTradeVolumeOver10M() {
+		List<String> idList = dao.queryLastTradeVolumeOver10M();
+		assertNotNull("should not be null", idList);
+		for(String id : idList) {
+			System.out.println(id);
+		}
+	}
 }

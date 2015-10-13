@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -38,7 +40,17 @@ public class LofCrawler {
 	protected static final float fundbIncreaseRateFence = 9;
 	protected static final float fundbLowerRecalcRateFence = 10;
 	private Set<String> hasNotifiedSet = new ConcurrentSkipListSet<>();
-	
+	private List<String> lastTradeOver10MFunds;
+
+	@PostConstruct
+	public void init() {
+		try {
+			lastTradeOver10MFunds = dao.queryLastTradeVolumeOver10M();
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+		}
+	}
+
 	@Autowired
 	private LofDao dao;
 
@@ -51,7 +63,7 @@ public class LofCrawler {
 			log.error(e, e);
 		}
 	}
-	
+
 	@Scheduled(cron = "1 3 15 * * MON-FRI")
 	public void lastShot() {
 		Date fireDate = new Date();
@@ -101,34 +113,43 @@ public class LofCrawler {
 			String fundbName = cell.getString("fundb_name");
 			float currentPrice = Float.valueOf(cell.getString("fundb_current_price"));
 			float fundbVolumn = Float.valueOf(cell.getString("fundb_volume"));
-			float fundbDiscountRate = Float.valueOf(StringUtils.removeEnd(cell.getString("fundb_discount_rt"), "%"));
-			if (fundbVolumn < volumnFence || fundbDiscountRate > fundbDiscountRateFence
-					|| hasNotifiedSet.contains(fundbId)) {
-				// 成交量太小,已经提醒过,或者B端溢价率太高直接pass
-				continue;
-			}
-			float fundbIncreaseRate = Float.valueOf(StringUtils.removeEnd(cell.getString("fundb_increase_rt"), "%"));
-			float fundbLowerRecalcRate = StringUtils.length(cell.getString("fundb_lower_recalc_rt")) > 1
-					? Float.valueOf(StringUtils.removeEnd(cell.getString("fundb_lower_recalc_rt"), "%")) : 100;
-			String indexId = cell.getString("fundb_index_id");
-			String indexName = cell.getString("fundb_index_name");
-			float indexIncreaseRate = Float
-					.valueOf(StringUtils.removeEnd(cell.getString("fundb_index_increase_rt"), "%"));
-			float baseDiscountRate = Float.valueOf(StringUtils.removeEnd(cell.getString("fundb_base_est_dis_rt"), "%"));
-			if (baseDiscountRate < lowerDiscountRate && fundbIncreaseRate < fundbIncreaseRateFence
-					&& fundbLowerRecalcRate > fundbLowerRecalcRateFence) {
-				hasNotifiedSet.add(fundbId);
-				lowerSb.append(String.format("%s, %s, 涨幅：%.2f%%, 溢价率：%.2f%%, 母基溢价率：%.2f%%, 现价：%.3f\n\t%s, %s, 涨幅：%.2f%%\n\n", fundbId,
-						fundbName, fundbIncreaseRate, fundbDiscountRate, baseDiscountRate, currentPrice, indexId,
-						indexName, indexIncreaseRate));
-			}
-			if (baseDiscountRate > upperDiscountRate && fundbLowerRecalcRate > fundbLowerRecalcRateFence
-					&& fireDate.after(CrawlerHelper.setTimeOfDate(fireDate, 14, 30, 0))) {
-				// 两点半后才考虑做溢价
-				hasNotifiedSet.add(fundbId);
-				upperSb.append(String.format("%s, %s, 涨幅：%.2f%%, 溢价率：%.2f%%, 母基溢价率：%.2f%%, 现价：%.3f\n\t%s, %s, 涨幅：%.2f%%\n\n", fundbId,
-						fundbName, fundbIncreaseRate, fundbDiscountRate, baseDiscountRate, currentPrice, indexId,
-						indexName, indexIncreaseRate));
+			float fundbDiscountRate = Float.valueOf(StringUtils.removeEnd(
+					cell.getString("fundb_discount_rt"), "%"));
+			if ((fundbVolumn > volumnFence || (lastTradeOver10MFunds != null
+					&& !lastTradeOver10MFunds.isEmpty() && lastTradeOver10MFunds.contains(fundbId)))
+					&& !hasNotifiedSet.contains(fundbId)) {
+				float fundbIncreaseRate = Float.valueOf(StringUtils.removeEnd(
+						cell.getString("fundb_increase_rt"), "%"));
+				float fundbLowerRecalcRate = StringUtils.length(cell
+						.getString("fundb_lower_recalc_rt")) > 1 ? Float.valueOf(StringUtils
+						.removeEnd(cell.getString("fundb_lower_recalc_rt"), "%")) : 100;
+				String indexId = cell.getString("fundb_index_id");
+				String indexName = cell.getString("fundb_index_name");
+				float indexIncreaseRate = Float.valueOf(StringUtils.removeEnd(
+						cell.getString("fundb_index_increase_rt"), "%"));
+				float baseDiscountRate = Float.valueOf(StringUtils.removeEnd(
+						cell.getString("fundb_base_est_dis_rt"), "%"));
+				if (baseDiscountRate < lowerDiscountRate
+						&& fundbIncreaseRate < fundbIncreaseRateFence
+						&& fundbLowerRecalcRate > fundbLowerRecalcRateFence) {
+					hasNotifiedSet.add(fundbId);
+					lowerSb.append(String
+							.format("%s, %s, 涨幅：%.2f%%, 溢价率：%.2f%%, 母基溢价率：%.2f%%, 现价：%.3f\n\t%s, %s, 涨幅：%.2f%%\n\n",
+									fundbId, fundbName, fundbIncreaseRate, fundbDiscountRate,
+									baseDiscountRate, currentPrice, indexId, indexName,
+									indexIncreaseRate));
+				}
+				if (baseDiscountRate > upperDiscountRate
+						&& fundbLowerRecalcRate > fundbLowerRecalcRateFence
+						&& fireDate.after(CrawlerHelper.setTimeOfDate(fireDate, 14, 30, 0))) {
+					// 两点半后才考虑做溢价
+					hasNotifiedSet.add(fundbId);
+					upperSb.append(String
+							.format("%s, %s, 涨幅：%.2f%%, 溢价率：%.2f%%, 母基溢价率：%.2f%%, 现价：%.3f\n\t%s, %s, 涨幅：%.2f%%\n\n",
+									fundbId, fundbName, fundbIncreaseRate, fundbDiscountRate,
+									baseDiscountRate, currentPrice, indexId, indexName,
+									indexIncreaseRate));
+				}
 			}
 		}
 		if (StringUtils.isNotBlank(lowerSb.toString())) {
@@ -162,8 +183,9 @@ public class LofCrawler {
 		Map<String, String> paramMap = new HashMap<>();
 		paramMap.put("___t", String.valueOf(fireDate.getTime()));
 		Map<String, String> headerMap = new HashMap<>();
-		headerMap.put("User-Agent",
-				"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:37.0) Gecko/20100101 Firefox/37.0");
+		headerMap
+				.put("User-Agent",
+						"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:37.0) Gecko/20100101 Firefox/37.0");
 		headerMap.put("Accept", "*/*");
 		headerMap.put("Cache-Control", "no-cache");
 		headerMap.put("Pragma", "no-cache");
