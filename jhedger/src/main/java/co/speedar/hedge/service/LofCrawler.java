@@ -33,14 +33,49 @@ import co.speedar.hedge.util.SwingUtil;
 public class LofCrawler {
 	protected static final Logger log = Logger.getLogger(LofCrawler.class);
 	// These params should be configurable, tune them yourself!
+	/**
+	 * 当日成交量阀值，>=
+	 */
 	protected static final int volumnFence = 600;
-	protected static final float fundbDiscountRateFence = 15;
+
+	/**
+	 * B端溢价率阀值，<=
+	 */
+	protected static final float fundbDiscountRateFence = 16;
+
+	/**
+	 * 做折价时候的整体溢价率阀值，<=
+	 */
 	protected static final float lowerDiscountRate = -2;
+
+	/**
+	 * 做溢价时的整体溢价率阀值，>=
+	 */
 	protected static final float upperDiscountRate = 3;
+
+	/**
+	 * B端涨幅阀值，<=
+	 */
 	protected static final float fundbIncreaseRateFence = 9;
-	protected static final float fundbLowerRecalcRateFence = 10;
+
+	/**
+	 * B端下折距离阀值，>=
+	 */
+	protected static final float fundbLowerRecalcRateFence = 12;
+
+	/**
+	 * 上两个交易日的母基整体溢价率阀值，>=
+	 */
 	protected static final float lastBaseDiscountRateFence = 1.5f;
+
+	/**
+	 * 是否已经提醒过
+	 */
 	private Set<String> hasNotifiedSet = new ConcurrentSkipListSet<>();
+
+	/**
+	 * 上个交易日B端成交量过千万的id列表
+	 */
 	private List<String> lastTradeOver10MFunds;
 
 	@PostConstruct
@@ -141,11 +176,12 @@ public class LofCrawler {
 									indexIncreaseRate));
 				}
 				float lastBaseDiscountRate = dao.queryLastTradeBaseDiscountRate(fundbId);
+				float lastLastBaseDiscountRate = dao.queryLastLastTradeBaseDiscountRate(fundbId);
 				if (baseDiscountRate > upperDiscountRate
 						&& lastBaseDiscountRate < lastBaseDiscountRateFence
+						&& lastLastBaseDiscountRate < lastBaseDiscountRateFence
 						&& fundbLowerRecalcRate > fundbLowerRecalcRateFence
 						&& fireDate.after(CrawlerHelper.setTimeOfDate(fireDate, 14, 30, 0))) {
-					// 两点半后才考虑做溢价
 					hasNotifiedSet.add(fundbId);
 					upperSb.append(String
 							.format("%s, %s, 涨幅：%.2f%%, 溢价率：%.2f%%, 母基溢价率：%.2f%%, 现价：%.3f\n\t%s, %s, 涨幅：%.2f%%\n\n",

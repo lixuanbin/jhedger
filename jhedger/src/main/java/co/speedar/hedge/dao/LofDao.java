@@ -37,6 +37,10 @@ public class LofDao {
 	protected static final String lastTradeBaseMaxDiscountSqlTpl = "select max(fundb_base_est_dis_rt) from hedger.lof_fundb_detail where fundb_id='%s' "
 			+ "and DATE(fundb_nav_datetime)=(select DATE(fundb_nav_datetime) as lastTradeDay from hedger.lof_fundb_detail where DATE(fundb_nav_datetime)<CURDATE()-1 order by fundb_nav_datetime desc limit 1) "
 			+ "and TIME(fundb_nav_datetime)>'14:45:00';";
+	
+	protected static final String lastLastTradeBaseMaxDiscountSqlTpl = "select max(fundb_base_est_dis_rt) from hedger.lof_fundb_detail where fundb_id='%s' "
+			+ "and DATE(fundb_nav_datetime)=(select DATE(fundb_nav_datetime) as lastTradeDay from hedger.lof_fundb_detail where DATE(fundb_nav_datetime)<CURDATE()-2 order by fundb_nav_datetime desc limit 1) "
+			+ "and TIME(fundb_nav_datetime)>'14:45:00';";
 
 	/**
 	 * Insert a list of lof details.
@@ -99,6 +103,26 @@ public class LofDao {
 	 */
 	public float queryLastTradeBaseDiscountRate(String fundb_id) {
 		return jdbcTemplate.query(String.format(lastTradeBaseMaxDiscountSqlTpl, fundb_id),
+				new ResultSetExtractor<Float>() {
+					@Override
+					public Float extractData(ResultSet rs) throws SQLException, DataAccessException {
+						if (rs.next()) {
+							return rs.getFloat(1);
+						} else {
+							return new Float(0);
+						}
+					}
+				});
+	}
+	
+	/**
+	 * 上上个交易日收盘前的母基溢价率
+	 * 
+	 * @param fundb_id
+	 * @return
+	 */
+	public float queryLastLastTradeBaseDiscountRate(String fundb_id) {
+		return jdbcTemplate.query(String.format(lastLastTradeBaseMaxDiscountSqlTpl, fundb_id),
 				new ResultSetExtractor<Float>() {
 					@Override
 					public Float extractData(ResultSet rs) throws SQLException, DataAccessException {

@@ -26,17 +26,36 @@ import co.speedar.hedge.util.HttpClientUtil;
 import co.speedar.hedge.util.SwingUtil;
 
 /**
- * @author ben
+ * @author lixuanbin
  *
  */
 @Service
 public class EtfCrawler {
 	protected static final Logger log = Logger.getLogger(EtfCrawler.class);
 	// These params should be configurable, tune them yourself!
+	/**
+	 * 成交量阀值，>=
+	 */
 	protected static final int volumnFence = 600;
+
+	/**
+	 * 溢价率阀值，<=
+	 */
 	protected static final float discountRateFence = -2;
+
+	/**
+	 * 涨幅阀值，<=
+	 */
 	protected static final float increaseRateFence = 9;
+
+	/**
+	 * 是否提醒过
+	 */
 	private Set<String> hasNotifiedSet = new ConcurrentSkipListSet<>();
+
+	/**
+	 * 上个交易日成交量大于千万的基金id列表
+	 */
 	private List<String> lastTradeOver10MFunds;
 
 	@PostConstruct
