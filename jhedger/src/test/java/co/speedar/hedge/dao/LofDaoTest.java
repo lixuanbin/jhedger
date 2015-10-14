@@ -47,4 +47,11 @@ public class LofDaoTest {
 			System.out.println(id);
 		}
 	}
+	
+	@Test
+	public void testQueryLastTradeBaseDiscountRate() {
+		Float lastBaseDiscount = dao.queryLastTradeBaseDiscountRate("150056");
+		assertNotNull("should not be null.", lastBaseDiscount);
+		System.out.println(lastBaseDiscount);
+	}
 }

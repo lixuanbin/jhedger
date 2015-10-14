@@ -34,7 +34,7 @@ public class EtfCrawler {
 	protected static final Logger log = Logger.getLogger(EtfCrawler.class);
 	// These params should be configurable, tune them yourself!
 	protected static final int volumnFence = 600;
-	protected static final float discountRateFence = -3;
+	protected static final float discountRateFence = -2;
 	protected static final float increaseRateFence = 9;
 	private Set<String> hasNotifiedSet = new ConcurrentSkipListSet<>();
 	private List<String> lastTradeOver10MFunds;
@@ -51,7 +51,7 @@ public class EtfCrawler {
 	@Autowired
 	private EtfDao dao;
 
-	@Scheduled(cron = "1 1/3 9-11,13-14 * * MON-FRI")
+	@Scheduled(cron = "1 1/2 9-11,13-14 * * MON-FRI")
 	public void execute() {
 		Date fireDate = new Date();
 		try {

@@ -69,7 +69,11 @@ public class EtfDao {
 		return jdbcTemplate.query(lastTradeVolumeOver10MSql, new RowMapper<String>() {
 			@Override
 			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-				return rs.getString("fund_id");
+				if (rs.next()) {
+					return rs.getString("fund_id");
+				} else {
+					return "";
+				}
 			}
 		});
 	}

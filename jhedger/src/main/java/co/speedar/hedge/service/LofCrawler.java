@@ -33,12 +33,13 @@ import co.speedar.hedge.util.SwingUtil;
 public class LofCrawler {
 	protected static final Logger log = Logger.getLogger(LofCrawler.class);
 	// These params should be configurable, tune them yourself!
-	protected static final int volumnFence = 500;
+	protected static final int volumnFence = 600;
 	protected static final float fundbDiscountRateFence = 15;
-	protected static final float lowerDiscountRate = -2.5f;
-	protected static final float upperDiscountRate = 5;
+	protected static final float lowerDiscountRate = -2;
+	protected static final float upperDiscountRate = 3;
 	protected static final float fundbIncreaseRateFence = 9;
 	protected static final float fundbLowerRecalcRateFence = 10;
+	protected static final float lastBaseDiscountRateFence = 1.5f;
 	private Set<String> hasNotifiedSet = new ConcurrentSkipListSet<>();
 	private List<String> lastTradeOver10MFunds;
 
@@ -54,7 +55,7 @@ public class LofCrawler {
 	@Autowired
 	private LofDao dao;
 
-	@Scheduled(cron = "1 1/3 9-11,13-14 * * MON-FRI")
+	@Scheduled(cron = "1 1/2 9-11,13-14 * * MON-FRI")
 	public void execute() {
 		Date fireDate = new Date();
 		try {
@@ -139,7 +140,9 @@ public class LofCrawler {
 									baseDiscountRate, currentPrice, indexId, indexName,
 									indexIncreaseRate));
 				}
+				float lastBaseDiscountRate = dao.queryLastTradeBaseDiscountRate(fundbId);
 				if (baseDiscountRate > upperDiscountRate
+						&& lastBaseDiscountRate < lastBaseDiscountRateFence
 						&& fundbLowerRecalcRate > fundbLowerRecalcRateFence
 						&& fireDate.after(CrawlerHelper.setTimeOfDate(fireDate, 14, 30, 0))) {
 					// 两点半后才考虑做溢价

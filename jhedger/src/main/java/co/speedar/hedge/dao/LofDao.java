@@ -10,8 +10,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -30,7 +32,11 @@ public class LofDao {
 			+ "`fundb_index_id`,`fundb_index_increase_rt`,`fundb_base_est_dis_rt`)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 	protected static final String lastTradeVolumeOver10MSql = "select distinct fundb_id from hedger.lof_fundb_detail where DATE(fundb_nav_datetime)="
-			+ "(select DATE(fundb_nav_datetime) as lastTradeDay from hedger.lof_fundb_detail where DATE(fundb_nav_datetime)<CURDATE()-1 order by updateTime desc limit 1) and fundb_volume>1000;";
+			+ "(select DATE(fundb_nav_datetime) as lastTradeDay from hedger.lof_fundb_detail where DATE(fundb_nav_datetime)<CURDATE()-1 order by fundb_nav_datetime desc limit 1) and fundb_volume>1000;";
+
+	protected static final String lastTradeBaseMaxDiscountSqlTpl = "select max(fundb_base_est_dis_rt) from hedger.lof_fundb_detail where fundb_id='%s' "
+			+ "and DATE(fundb_nav_datetime)=(select DATE(fundb_nav_datetime) as lastTradeDay from hedger.lof_fundb_detail where DATE(fundb_nav_datetime)<CURDATE()-1 order by fundb_nav_datetime desc limit 1) "
+			+ "and TIME(fundb_nav_datetime)>'14:45:00';";
 
 	/**
 	 * Insert a list of lof details.
@@ -76,8 +82,32 @@ public class LofDao {
 		return jdbcTemplate.query(lastTradeVolumeOver10MSql, new RowMapper<String>() {
 			@Override
 			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-				return rs.getString("fundb_id");
+				if (rs.next()) {
+					return rs.getString("fundb_id");
+				} else {
+					return "";
+				}
 			}
 		});
+	}
+
+	/**
+	 * 上个交易日收盘前的母基溢价率
+	 * 
+	 * @param fundb_id
+	 * @return
+	 */
+	public float queryLastTradeBaseDiscountRate(String fundb_id) {
+		return jdbcTemplate.query(String.format(lastTradeBaseMaxDiscountSqlTpl, fundb_id),
+				new ResultSetExtractor<Float>() {
+					@Override
+					public Float extractData(ResultSet rs) throws SQLException, DataAccessException {
+						if (rs.next()) {
+							return rs.getFloat(1);
+						} else {
+							return new Float(0);
+						}
+					}
+				});
 	}
 }
