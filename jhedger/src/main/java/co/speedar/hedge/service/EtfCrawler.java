@@ -131,10 +131,12 @@ public class EtfCrawler {
 			if ((volume > volumnFence || (lastTradeOver10MFunds != null
 					&& !lastTradeOver10MFunds.isEmpty() && lastTradeOver10MFunds.contains(fundId)))
 					&& !hasNotifiedSet.contains(fundId)) {
-				float increaseRate = Float.valueOf(StringUtils.removeEnd(
-						cell.getString("increase_rt"), "%"));
-				float discountRate = Float.valueOf(StringUtils.removeEnd(
-						cell.getString("discount_rt"), "%"));
+				float increaseRate = StringUtils.isNumeric(StringUtils.removeEnd(
+						cell.getString("increase_rt"), "%")) ? Float.valueOf(StringUtils.removeEnd(
+						cell.getString("increase_rt"), "%")) : 0;
+				float discountRate = StringUtils.isNumeric(StringUtils.removeEnd(
+						cell.getString("discount_rt"), "%")) ? Float.valueOf(StringUtils.removeEnd(
+						cell.getString("discount_rt"), "%")) : 0;
 				String indexId = cell.getString("index_id");
 				String indexName = cell.getString("index_nm");
 				float indexIncreaseRate = StringUtils.length(cell.getString("index_increase_rt")) > 1 ? Float

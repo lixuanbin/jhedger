@@ -41,12 +41,12 @@ public class LofCrawler {
 	/**
 	 * B端溢价率阀值，<=
 	 */
-	protected static final float fundbDiscountRateFence = 16;
+	protected static final float fundbDiscountRateFence = 30;
 
 	/**
 	 * 做折价时候的整体溢价率阀值，<=
 	 */
-	protected static final float lowerDiscountRate = -2;
+	protected static final float lowerDiscountRate = -2f;
 
 	/**
 	 * 做溢价时的整体溢价率阀值，>=
@@ -61,10 +61,10 @@ public class LofCrawler {
 	/**
 	 * B端下折距离阀值，>=
 	 */
-	protected static final float fundbLowerRecalcRateFence = 12;
+	protected static final float fundbLowerRecalcRateFence = 10;
 
 	/**
-	 * 上两个交易日的母基整体溢价率阀值，>=
+	 * 上两个交易日的母基整体溢价率阀值，<=
 	 */
 	protected static final float lastBaseDiscountRateFence = 1.5f;
 
@@ -154,17 +154,21 @@ public class LofCrawler {
 			if ((fundbVolumn > volumnFence || (lastTradeOver10MFunds != null
 					&& !lastTradeOver10MFunds.isEmpty() && lastTradeOver10MFunds.contains(fundbId)))
 					&& !hasNotifiedSet.contains(fundbId)) {
-				float fundbIncreaseRate = Float.valueOf(StringUtils.removeEnd(
-						cell.getString("fundb_increase_rt"), "%"));
+				float fundbIncreaseRate = StringUtils.isNumeric(StringUtils.removeEnd(
+						cell.getString("fundb_increase_rt"), "%")) ? Float.valueOf(StringUtils
+						.removeEnd(cell.getString("fundb_increase_rt"), "%")) : 0;
 				float fundbLowerRecalcRate = StringUtils.length(cell
 						.getString("fundb_lower_recalc_rt")) > 1 ? Float.valueOf(StringUtils
 						.removeEnd(cell.getString("fundb_lower_recalc_rt"), "%")) : 100;
 				String indexId = cell.getString("fundb_index_id");
 				String indexName = cell.getString("fundb_index_name");
-				float indexIncreaseRate = Float.valueOf(StringUtils.removeEnd(
-						cell.getString("fundb_index_increase_rt"), "%"));
-				float baseDiscountRate = Float.valueOf(StringUtils.removeEnd(
-						cell.getString("fundb_base_est_dis_rt"), "%"));
+				float indexIncreaseRate = StringUtils.isNumeric(StringUtils.removeEnd(
+						cell.getString("fundb_index_increase_rt"), "%")) ? Float
+						.valueOf(StringUtils.removeEnd(cell.getString("fundb_index_increase_rt"),
+								"%")) : 0;
+				float baseDiscountRate = StringUtils.isNumeric(StringUtils.removeEnd(
+						cell.getString("fundb_base_est_dis_rt"), "%")) ? Float.valueOf(StringUtils
+						.removeEnd(cell.getString("fundb_base_est_dis_rt"), "%")) : 0;
 				if (baseDiscountRate < lowerDiscountRate
 						&& fundbIncreaseRate < fundbIncreaseRateFence
 						&& fundbLowerRecalcRate > fundbLowerRecalcRateFence) {
