@@ -49,6 +49,15 @@ public class LofDaoTest {
 	}
 	
 	@Test
+	public void testQueryLastTradeVolumeOver5M() {
+		List<String> idList = dao.queryLastTradeVolumeOver5M();
+		assertNotNull("should not be null", idList);
+		for (String id : idList) {
+			System.out.println(id);
+		}
+	}
+	
+	@Test
 	public void testQueryLastTradeBaseDiscountRate() {
 		Float lastBaseDiscount = dao.queryLastTradeBaseDiscountRate("150056");
 		assertNotNull("should not be null.", lastBaseDiscount);

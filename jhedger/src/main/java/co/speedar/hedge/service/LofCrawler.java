@@ -46,12 +46,12 @@ public class LofCrawler {
 	/**
 	 * 做折价时候的整体溢价率阀值，<=
 	 */
-	protected static final float lowerDiscountRate = -2f;
+	protected static final float lowerDiscountRate = -1f;
 
 	/**
 	 * 做溢价时的整体溢价率阀值，>=
 	 */
-	protected static final float upperDiscountRate = 3;
+	protected static final float upperDiscountRate = 1.5f;
 
 	/**
 	 * B端涨幅阀值，<=
@@ -74,14 +74,14 @@ public class LofCrawler {
 	private Set<String> hasNotifiedSet = new ConcurrentSkipListSet<>();
 
 	/**
-	 * 上个交易日B端成交量过千万的id列表
+	 * 上个交易日B端成交量过5百万的id列表
 	 */
-	private List<String> lastTradeOver10MFunds;
+	private List<String> lastTradeOver5MFunds;
 
 	@PostConstruct
 	public void init() {
 		try {
-			lastTradeOver10MFunds = dao.queryLastTradeVolumeOver10M();
+			lastTradeOver5MFunds = dao.queryLastTradeVolumeOver5M();
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
@@ -105,6 +105,15 @@ public class LofCrawler {
 		Date fireDate = new Date();
 		try {
 			craw(fireDate);
+		} catch (Exception e) {
+			log.error(e, e);
+		}
+	}
+	
+	@Scheduled(cron = "1 1 9 * * MON-FRI")
+	public void lastDay() {
+		try {
+			lastTradeOver5MFunds = dao.queryLastTradeVolumeOver5M();
 		} catch (Exception e) {
 			log.error(e, e);
 		}
@@ -151,8 +160,8 @@ public class LofCrawler {
 			float fundbVolumn = Float.valueOf(cell.getString("fundb_volume"));
 			float fundbDiscountRate = Float.valueOf(StringUtils.removeEnd(
 					cell.getString("fundb_discount_rt"), "%"));
-			if ((fundbVolumn > volumnFence || (lastTradeOver10MFunds != null
-					&& !lastTradeOver10MFunds.isEmpty() && lastTradeOver10MFunds.contains(fundbId)))
+			if ((fundbVolumn > volumnFence || (lastTradeOver5MFunds != null
+					&& !lastTradeOver5MFunds.isEmpty() && lastTradeOver5MFunds.contains(fundbId)))
 					&& !hasNotifiedSet.contains(fundbId)) {
 				float fundbIncreaseRate = StringUtils.isNumeric(StringUtils.removeEnd(
 						cell.getString("fundb_increase_rt"), "%")) ? Float.valueOf(StringUtils

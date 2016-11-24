@@ -24,12 +24,15 @@ public class EtfDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	protected static final String batchInsertEtfDetailSql = "insert ignore INTO `hedger`.`etf_detail`(`fund_id`,`nav_datetime`,"
+	protected static final String batchInsertEtfDetailSql = "insert ignore INTO `hedger2`.`etf_detail`(`fund_id`,`nav_datetime`,"
 			+ "`fund_name`,`index_id`,`price`,`volume`,`increase_rt`,`index_increase_rt`,`estimate_value`,`discount_rt`)"
 			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-	protected static final String lastTradeVolumeOver10MSql = "select distinct fund_id from hedger.etf_detail where DATE(nav_datetime)="
-			+ "(select DATE(nav_datetime) as lastTradeDay from hedger.etf_detail where DATE(nav_datetime)<CURDATE()-1 order by updateTime desc limit 1) and volume>1000";
+	protected static final String lastTradeVolumeOver10MSql = "select distinct fund_id from hedger2.etf_detail where DATE(nav_datetime)="
+			+ "(select DATE(nav_datetime) as lastTradeDay from hedger2.etf_detail where DATE(nav_datetime)<CURDATE()-1 order by updateTime desc limit 1) and volume>1000";
+
+	protected static final String lastTradeVolumeOver5MSql = "select distinct fund_id from hedger2.etf_detail where DATE(nav_datetime)="
+			+ "(select DATE(nav_datetime) as lastTradeDay from hedger2.etf_detail where DATE(nav_datetime)<CURDATE()-1 order by updateTime desc limit 1) and volume>500";
 
 	/**
 	 * Insert a list of etf details.
@@ -67,6 +70,24 @@ public class EtfDao {
 	 */
 	public List<String> queryLastTradeVolumeOver10M() {
 		return jdbcTemplate.query(lastTradeVolumeOver10MSql, new RowMapper<String>() {
+			@Override
+			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+				if (rs.next()) {
+					return rs.getString("fund_id");
+				} else {
+					return "";
+				}
+			}
+		});
+	}
+
+	/**
+	 * 上个交易日成交量大于500万的基金id
+	 * 
+	 * @return
+	 */
+	public List<String> queryLastTradeVolumeOver5M() {
+		return jdbcTemplate.query(lastTradeVolumeOver5MSql, new RowMapper<String>() {
 			@Override
 			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
 				if (rs.next()) {

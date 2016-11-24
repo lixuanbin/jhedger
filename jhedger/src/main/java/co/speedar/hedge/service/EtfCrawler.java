@@ -36,7 +36,7 @@ public class EtfCrawler {
 	/**
 	 * 成交量阀值，>=
 	 */
-	protected static final int volumnFence = 600;
+	protected static final int volumnFence = 300;
 
 	/**
 	 * 溢价率阀值，<=
@@ -54,16 +54,25 @@ public class EtfCrawler {
 	private Set<String> hasNotifiedSet = new ConcurrentSkipListSet<>();
 
 	/**
-	 * 上个交易日成交量大于千万的基金id列表
+	 * 上个交易日成交量大于500万的基金id列表
 	 */
-	private List<String> lastTradeOver10MFunds;
+	private List<String> lastTradeOver5MFunds;
 
 	@PostConstruct
 	public void init() {
 		try {
-			lastTradeOver10MFunds = dao.queryLastTradeVolumeOver10M();
+			lastTradeOver5MFunds = dao.queryLastTradeVolumeOver5M();
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
+		}
+	}
+	
+	@Scheduled(cron = "1 1 9 * * MON-FRI")
+	public void lastDay() {
+		try {
+			lastTradeOver5MFunds = dao.queryLastTradeVolumeOver5M();
+		} catch (Exception e) {
+			log.error(e, e);
 		}
 	}
 
@@ -128,8 +137,8 @@ public class EtfCrawler {
 			String fundName = cell.getString("fund_nm");
 			float price = Float.valueOf(cell.getString("price"));
 			float volume = Float.valueOf(cell.getString("volume"));
-			if ((volume > volumnFence || (lastTradeOver10MFunds != null
-					&& !lastTradeOver10MFunds.isEmpty() && lastTradeOver10MFunds.contains(fundId)))
+			if ((volume > volumnFence || (lastTradeOver5MFunds != null
+					&& !lastTradeOver5MFunds.isEmpty() && lastTradeOver5MFunds.contains(fundId)))
 					&& !hasNotifiedSet.contains(fundId)) {
 				float increaseRate = StringUtils.isNumeric(StringUtils.removeEnd(
 						cell.getString("increase_rt"), "%")) ? Float.valueOf(StringUtils.removeEnd(

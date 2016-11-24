@@ -100,6 +100,6 @@ public class HttpClientUtil {
 	public static void main(String[] args) {
 		Map<String, String> params = new HashMap<>();
 		params.put("prefixsug", "医药广告");
-		getStringFromHost("http://www.baidu.com", params, null, "utf-8");
+		System.out.println(getStringFromHost("http://www.baidu.com", params, null, "utf-8"));
 	}
 }
