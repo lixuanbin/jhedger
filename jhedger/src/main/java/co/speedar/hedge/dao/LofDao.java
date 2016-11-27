@@ -26,21 +26,21 @@ public class LofDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	protected static final String batchInsertLofDetailSql = "insert ignore INTO `hedger2`.`lof_fundb_detail`(`fundb_id`,`fundb_name`,"
+	protected static final String batchInsertLofDetailSql = "replace INTO `hedger2`.`lof_fundb_detail`(`fundb_id`,`fundb_name`,"
 			+ "`fundb_current_price`,`fundb_volume`,`fundb_increase_rt`,`fundb_value`,`fundb_est_val`,`fundb_discount_rt`,"
 			+ "`fundb_price_leverage_rt`,`fundb_net_leverage_rt`,`fundb_lower_recalc_rt`,`fundb_nav_datetime`,`fundb_upper_recalc_rt`,"
-			+ "`fundb_index_id`,`fundb_index_increase_rt`,`fundb_base_est_dis_rt`)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			+ "`fundb_index_id`,`fundb_index_increase_rt`,`fundb_base_est_dis_rt`,`craw_datetime`)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 	protected static final String lastTradeVolumeOver10MSql = "select distinct fundb_id from hedger2.lof_fundb_detail where DATE(fundb_nav_datetime)="
 			+ "(select DATE(fundb_nav_datetime) as lastTradeDay from hedger2.lof_fundb_detail where DATE(fundb_nav_datetime)<CURDATE()-1 order by fundb_nav_datetime desc limit 1) and fundb_volume>1000;";
-	
+
 	protected static final String lastTradeVolumeOver5MSql = "select distinct fundb_id from hedger2.lof_fundb_detail where DATE(fundb_nav_datetime)="
 			+ "(select DATE(fundb_nav_datetime) as lastTradeDay from hedger2.lof_fundb_detail where DATE(fundb_nav_datetime)<CURDATE()-1 order by fundb_nav_datetime desc limit 1) and fundb_volume>500;";
 
 	protected static final String lastTradeBaseMaxDiscountSqlTpl = "select max(fundb_base_est_dis_rt) from hedger2.lof_fundb_detail where fundb_id='%s' "
 			+ "and DATE(fundb_nav_datetime)=(select DATE(fundb_nav_datetime) as lastTradeDay from hedger2.lof_fundb_detail where DATE(fundb_nav_datetime)<CURDATE()-1 order by fundb_nav_datetime desc limit 1) "
 			+ "and TIME(fundb_nav_datetime)>'14:45:00';";
-	
+
 	protected static final String lastLastTradeBaseMaxDiscountSqlTpl = "select max(fundb_base_est_dis_rt) from hedger2.lof_fundb_detail where fundb_id='%s' "
 			+ "and DATE(fundb_nav_datetime)=(select DATE(fundb_nav_datetime) as lastTradeDay from hedger2.lof_fundb_detail where DATE(fundb_nav_datetime)<CURDATE()-2 order by fundb_nav_datetime desc limit 1) "
 			+ "and TIME(fundb_nav_datetime)>'14:45:00';";
@@ -50,7 +50,7 @@ public class LofDao {
 	 * 
 	 * @param lofList
 	 */
-	public void batchInsertLofDetail(final List<Map<String, Object>> lofList) {
+	public void batchInsertLofDetail(final List<Map<String, Object>> lofList, final String fireDay) {
 		jdbcTemplate.batchUpdate(batchInsertLofDetailSql, new BatchPreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
@@ -71,6 +71,7 @@ public class LofDao {
 				ps.setString(14, String.valueOf(map.get("fundb_index_id")));
 				ps.setFloat(15, (Float) map.get("fundb_index_increase_rt"));
 				ps.setFloat(16, (Float) map.get("fundb_base_est_dis_rt"));
+				ps.setString(17, fireDay);
 			}
 
 			@Override
@@ -97,7 +98,7 @@ public class LofDao {
 			}
 		});
 	}
-	
+
 	/**
 	 * 上个交易日成交量大于千万的基金id
 	 * 
@@ -135,7 +136,7 @@ public class LofDao {
 					}
 				});
 	}
-	
+
 	/**
 	 * 上上个交易日收盘前的母基溢价率
 	 * 

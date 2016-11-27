@@ -3,7 +3,6 @@ package co.speedar.hedge.service;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ public class CrawlerTest {
 	private EtfCrawler etfCrawler;
 
 	@Test
-	@Ignore
 	public void testLof() {
 		Date fireDate = new GregorianCalendar(2015, 9, 21, 14, 59, 30).getTime();
 		lofCrawler.craw(fireDate);
@@ -28,7 +26,6 @@ public class CrawlerTest {
 	}
 
 	@Test
-	@Ignore
 	public void testEtf() {
 		Date fireDate = new GregorianCalendar(2015, 9, 7, 10, 30, 30).getTime();
 		etfCrawler.craw(fireDate);
@@ -37,7 +34,7 @@ public class CrawlerTest {
 
 	@Test
 	public void testGetEtfJson() {
-		Date fireDate = new GregorianCalendar(2015, 9, 10, 12, 40, 30).getTime();
+		Date fireDate = new GregorianCalendar(2016, 4, 5, 9, 40, 30).getTime();
 		String json = etfCrawler.getEtfJson(fireDate);
 		System.out.println(json);
 	}
@@ -45,7 +42,7 @@ public class CrawlerTest {
 	@Test
 	public void testGetLofJson() {
 		Date fireDate = new GregorianCalendar(2015, 9, 10, 12, 40, 30).getTime();
-		String json = lofCrawler.getLofJson(fireDate);
+		String json = lofCrawler.getLofJson(LofCrawler.fundbHostPath, fireDate);
 		System.out.println(json);
 	}
 }

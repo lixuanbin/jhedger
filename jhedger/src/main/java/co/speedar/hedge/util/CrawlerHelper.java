@@ -3,7 +3,6 @@
  */
 package co.speedar.hedge.util;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,8 +21,9 @@ import org.json.JSONObject;
  *
  */
 public class CrawlerHelper {
-	public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	public static final String dateTimeFormatPattern = "yyyy-MM-dd HH:mm:ss";
+	public static final String dateFormatPattern = "yyyy-MM-dd";
+	public static final String yearMonthFormatPattern = "yyyyMM";
 	protected static final Logger log = Logger.getLogger(CrawlerHelper.class);
 
 	/**
@@ -54,9 +55,8 @@ public class CrawlerHelper {
 		fifteen.set(Calendar.HOUR_OF_DAY, 15);
 		fifteen.set(Calendar.MINUTE, 5);
 		fifteen.set(Calendar.SECOND, 3);
-		if (now.get(Calendar.DAY_OF_WEEK) == 1 || now.get(Calendar.DAY_OF_WEEK) == 7
-				|| now.before(nineThirty) || (now.after(elevenThirty) && now.before(thirteen))
-				|| now.after(fifteen)) {
+		if (now.get(Calendar.DAY_OF_WEEK) == 1 || now.get(Calendar.DAY_OF_WEEK) == 7 || now.before(nineThirty)
+				|| (now.after(elevenThirty) && now.before(thirteen)) || now.after(fifteen)) {
 			return true;
 		} else {
 			return false;
@@ -99,17 +99,30 @@ public class CrawlerHelper {
 			map.put("price", price);
 			float volume = Float.valueOf(cell.getString("volume"));
 			map.put("volume", volume);
-			float increaseRate = Float.valueOf(StringUtils.removeEnd(cell.getString("increase_rt"),
-					"%"));
+			float increaseRate = Float
+					.valueOf(NumberUtils.isNumber(StringUtils.removeEnd(cell.getString("increase_rt"), "%"))
+							? StringUtils.removeEnd(cell.getString("increase_rt"), "%") : "-99");
 			map.put("increase_rt", increaseRate);
-			float indexIncreaseRate = StringUtils.length(cell.getString("index_increase_rt")) > 1 ? Float
-					.valueOf(StringUtils.removeEnd(cell.getString("index_increase_rt"), "%")) : 0;
+			float indexIncreaseRate = Float
+					.valueOf(NumberUtils.isNumber(StringUtils.removeEnd(cell.getString("index_increase_rt"), "%"))
+							? StringUtils.removeEnd(cell.getString("index_increase_rt"), "%") : "-99");
 			map.put("index_increase_rt", indexIncreaseRate);
-			float estimateValue = Float.valueOf(cell.getString("estimate_value"));
+			float estimateValue = Float.valueOf(
+					NumberUtils.isNumber(cell.getString("estimate_value")) ? cell.getString("estimate_value") : "-99");
 			map.put("estimate_value", estimateValue);
-			float discountRate = Float.valueOf(StringUtils.removeEnd(cell.getString("discount_rt"),
-					"%"));
+			float discountRate = Float
+					.valueOf(NumberUtils.isNumber(StringUtils.removeEnd(cell.getString("discount_rt"), "%"))
+							? StringUtils.removeEnd(cell.getString("discount_rt"), "%") : "-99");
 			map.put("discount_rt", discountRate);
+			try {
+				float pe = Float.valueOf(NumberUtils.isNumber(cell.getString("pe")) ? cell.getString("pe") : "-99");
+				map.put("pe", pe);
+				float pb = Float.valueOf(NumberUtils.isNumber(cell.getString("pb")) ? cell.getString("pb") : "-99");
+				map.put("pb", pb);
+			} catch (Exception e) {
+				map.put("pe", -99.0f);
+				map.put("pb", -99.0f);
+			}
 			etfList.add(map);
 		}
 		return etfList;
@@ -130,43 +143,50 @@ public class CrawlerHelper {
 			map.put("fundb_nav_datetime", date + " " + lastTime);
 			String fundbName = cell.getString("fundb_name");
 			map.put("fundb_name", fundbName);
-			float currentPrice = Float.valueOf(cell.getString("fundb_current_price"));
+			float currentPrice = Float.valueOf(NumberUtils.isNumber(cell.getString("fundb_current_price"))
+					? cell.getString("fundb_current_price") : "-99");
 			map.put("fundb_current_price", currentPrice);
-			float fundbVolumn = Float.valueOf(cell.getString("fundb_volume"));
+			float fundbVolumn = Float.valueOf(
+					NumberUtils.isNumber(cell.getString("fundb_volume")) ? cell.getString("fundb_volume") : "-99");
 			map.put("fundb_volume", fundbVolumn);
-			float increaseRate = Float.valueOf(StringUtils.removeEnd(
-					cell.getString("fundb_increase_rt"), "%"));
+			float increaseRate = Float
+					.valueOf(NumberUtils.isNumber(StringUtils.removeEnd(cell.getString("fundb_increase_rt"), "%"))
+							? StringUtils.removeEnd(cell.getString("fundb_increase_rt"), "%") : "-99");
 			map.put("fundb_increase_rt", increaseRate);
-			float fundbValue = Float.valueOf(cell.getString("fundb_value"));
+			float fundbValue = Float.valueOf(
+					NumberUtils.isNumber(cell.getString("fundb_value")) ? cell.getString("fundb_value") : "-99");
 			map.put("fundb_value", fundbValue);
-			float fundbEstValue = Float.valueOf(cell.getString("b_est_val"));
+			float fundbEstValue = Float
+					.valueOf(NumberUtils.isNumber(cell.getString("b_est_val")) ? cell.getString("b_est_val") : "-99");
 			map.put("fundb_est_val", fundbEstValue);
-			float fundbDiscountRate = Float.valueOf(StringUtils.removeEnd(
-					cell.getString("fundb_discount_rt"), "%"));
+			float fundbDiscountRate = Float
+					.valueOf(NumberUtils.isNumber(StringUtils.removeEnd(cell.getString("fundb_discount_rt"), "%"))
+							? StringUtils.removeEnd(cell.getString("fundb_discount_rt"), "%") : "-99");
 			map.put("fundb_discount_rt", fundbDiscountRate);
-			float fundbPriceRate = Float.valueOf(StringUtils.removeEnd(
-					cell.getString("fundb_price_leverage_rt"), "%"));
+			float fundbPriceRate = Float
+					.valueOf(NumberUtils.isNumber(StringUtils.removeEnd(cell.getString("fundb_price_leverage_rt"), "%"))
+							? StringUtils.removeEnd(cell.getString("fundb_price_leverage_rt"), "%") : "-99");
 			map.put("fundb_price_leverage_rt", fundbPriceRate);
-			float fundbNetRate = Float.valueOf(StringUtils.removeEnd(
-					cell.getString("fundb_net_leverage_rt"), "%"));
+			float fundbNetRate = Float
+					.valueOf(NumberUtils.isNumber(StringUtils.removeEnd(cell.getString("fundb_net_leverage_rt"), "%"))
+							? StringUtils.removeEnd(cell.getString("fundb_net_leverage_rt"), "%") : "-99");
 			map.put("fundb_net_leverage_rt", fundbNetRate);
-			float fundbLowerRecalcRate = StringUtils
-					.length(cell.getString("fundb_lower_recalc_rt")) > 1 ? Float
-					.valueOf(StringUtils.removeEnd(cell.getString("fundb_lower_recalc_rt"), "%"))
-					: 100;
+			float fundbLowerRecalcRate = StringUtils.length(cell.getString("fundb_lower_recalc_rt")) > 1
+					? Float.valueOf(StringUtils.removeEnd(cell.getString("fundb_lower_recalc_rt"), "%")) : 100;
 			map.put("fundb_lower_recalc_rt", fundbLowerRecalcRate);
-			float fundbUpperRate = StringUtils.length(cell.getString("fundb_upper_recalc_rt")) > 1 ? Float
-					.valueOf(StringUtils.removeEnd(
-							StringUtils.removeEnd(cell.getString("fundb_upper_recalc_rt"), "%"),
-							"-")) : 0;
+			float fundbUpperRate = Float
+					.valueOf(NumberUtils.isNumber(StringUtils.removeEnd(cell.getString("fundb_upper_recalc_rt"), "%"))
+							? StringUtils.removeEnd(cell.getString("fundb_upper_recalc_rt"), "%") : "-99");
 			map.put("fundb_upper_recalc_rt", fundbUpperRate);
 			String indexId = cell.getString("fundb_index_id");
 			map.put("fundb_index_id", indexId);
-			float indexIncreaseRate = Float.valueOf(StringUtils.removeEnd(
-					cell.getString("fundb_index_increase_rt"), "%"));
+			float indexIncreaseRate = Float
+					.valueOf(NumberUtils.isNumber(StringUtils.removeEnd(cell.getString("fundb_index_increase_rt"), "%"))
+							? StringUtils.removeEnd(cell.getString("fundb_index_increase_rt"), "%") : "-99");
 			map.put("fundb_index_increase_rt", indexIncreaseRate);
-			float baseDiscountRate = Float.valueOf(StringUtils.removeEnd(
-					cell.getString("fundb_base_est_dis_rt"), "%"));
+			float baseDiscountRate = Float
+					.valueOf(NumberUtils.isNumber(StringUtils.removeEnd(cell.getString("fundb_base_est_dis_rt"), "%"))
+							? StringUtils.removeEnd(cell.getString("fundb_base_est_dis_rt"), "%") : "-99");
 			map.put("fundb_base_est_dis_rt", baseDiscountRate);
 			lofList.add(map);
 		}

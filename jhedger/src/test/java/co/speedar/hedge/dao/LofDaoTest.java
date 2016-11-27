@@ -4,11 +4,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,10 +34,11 @@ public class LofDaoTest {
 		Resource resource = new ClassPathResource("lofSample.json");
 		String json = IOUtils.toString(resource.getInputStream());
 		assertNotNull("lof sample should not be null", json);
-		List<Map<String, Object>> lofList = CrawlerHelper.buildLofListFromJson(
-				new GregorianCalendar(2015, 8, 30, 16, 30, 30).getTime(), json);
+		List<Map<String, Object>> lofList = CrawlerHelper
+				.buildLofListFromJson(new GregorianCalendar(2015, 8, 30, 16, 30, 30).getTime(), json);
 		assertTrue("lof list should not be empty", lofList != null && !lofList.isEmpty());
-		dao.batchInsertLofDetail(lofList);
+		dao.batchInsertLofDetail(lofList, DateFormatUtils.format(new GregorianCalendar(2015, 8, 30, 16, 30, 30),
+				CrawlerHelper.dateTimeFormatPattern));
 		IOUtils.closeQuietly(resource.getInputStream());
 	}
 
@@ -47,7 +50,7 @@ public class LofDaoTest {
 			System.out.println(id);
 		}
 	}
-	
+
 	@Test
 	public void testQueryLastTradeVolumeOver5M() {
 		List<String> idList = dao.queryLastTradeVolumeOver5M();
@@ -56,7 +59,7 @@ public class LofDaoTest {
 			System.out.println(id);
 		}
 	}
-	
+
 	@Test
 	public void testQueryLastTradeBaseDiscountRate() {
 		Float lastBaseDiscount = dao.queryLastTradeBaseDiscountRate("150056");

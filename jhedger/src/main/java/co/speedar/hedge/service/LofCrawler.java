@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentSkipListSet;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -77,6 +78,9 @@ public class LofCrawler {
 	 * 上个交易日B端成交量过5百万的id列表
 	 */
 	private List<String> lastTradeOver5MFunds;
+	
+	public static final String fundbHostPath = "https://www.jisilu.cn/data/sfnew/fundb_list/";
+	public static final String fundaHostPath = "https://www.jisilu.cn/data/sfnew/funda_list/";
 
 	@PostConstruct
 	public void init() {
@@ -135,11 +139,14 @@ public class LofCrawler {
 		if (CrawlerHelper.isNotOpen(fireDate)) {
 			return;
 		} else {
-			String json = getLofJson(fireDate);
+			String json = getLofJson(fundbHostPath, fireDate);
 			log.info(json);
 			checkAndNotify(json, fireDate);
+			String fireDay = DateFormatUtils.format(fireDate, CrawlerHelper.dateTimeFormatPattern);
 			List<Map<String, Object>> lofList = CrawlerHelper.buildLofListFromJson(fireDate, json);
-			dao.batchInsertLofDetail(lofList);
+			dao.batchInsertLofDetail(lofList, fireDay);
+			json = getLofJson(fundaHostPath, fireDate);
+			log.info(json);
 		}
 	}
 
@@ -206,7 +213,8 @@ public class LofCrawler {
 		}
 		if (StringUtils.isNotBlank(lowerSb.toString())) {
 			log.info(lowerSb.toString());
-			final String title = "Fundb lower flow! " + CrawlerHelper.sdf.format(new Date());
+			final String title = "Fundb lower flow! "
+					+ DateFormatUtils.format(new Date(), CrawlerHelper.dateTimeFormatPattern);
 			final String content = lowerSb.toString();
 			Thread thread = new Thread(new Runnable() {
 				public void run() {
@@ -217,7 +225,8 @@ public class LofCrawler {
 		}
 		if (StringUtils.isNotBlank(upperSb.toString())) {
 			log.info(upperSb.toString());
-			final String title = "Fundb upper flow! " + CrawlerHelper.sdf.format(new Date());
+			final String title = "Fundb upper flow! "
+					+ DateFormatUtils.format(new Date(), CrawlerHelper.dateTimeFormatPattern);
 			final String content = upperSb.toString();
 			Thread thread = new Thread(new Runnable() {
 				public void run() {
@@ -231,7 +240,7 @@ public class LofCrawler {
 	/**
 	 * @return
 	 */
-	public String getLofJson(Date fireDate) {
+	public String getLofJson(String hostPath, Date fireDate) {
 		Map<String, String> paramMap = new HashMap<>();
 		paramMap.put("___t", String.valueOf(fireDate.getTime()));
 		Map<String, String> headerMap = new HashMap<>();
@@ -242,7 +251,6 @@ public class LofCrawler {
 		headerMap.put("Cache-Control", "no-cache");
 		headerMap.put("Pragma", "no-cache");
 		// Find yourself a better source.
-		String hostPath = "http://www.jisilu.cn/data/sfnew/fundb_list/";
 		String json = HttpClientUtil.getStringFromHost(hostPath, paramMap, headerMap, "utf-8");
 		return json;
 	}

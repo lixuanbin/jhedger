@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentSkipListSet;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -57,6 +58,8 @@ public class EtfCrawler {
 	 * 上个交易日成交量大于500万的基金id列表
 	 */
 	private List<String> lastTradeOver5MFunds;
+	
+	public static final String etfHostPath = "https://www.jisilu.cn/jisiludata/etf.php";
 
 	@PostConstruct
 	public void init() {
@@ -66,7 +69,7 @@ public class EtfCrawler {
 			log.error(e.getMessage(), e);
 		}
 	}
-	
+
 	@Scheduled(cron = "1 1 9 * * MON-FRI")
 	public void lastDay() {
 		try {
@@ -119,7 +122,8 @@ public class EtfCrawler {
 			log.info(json);
 			checkAndNotify(json);
 			List<Map<String, Object>> etfList = CrawlerHelper.buildEtfListFromJson(fireDate, json);
-			dao.batchInsertEtfDetail(etfList);
+			String fireDay = DateFormatUtils.format(fireDate, CrawlerHelper.dateTimeFormatPattern);
+			dao.batchInsertEtfDetail(etfList, fireDay);
 		}
 	}
 
@@ -137,32 +141,27 @@ public class EtfCrawler {
 			String fundName = cell.getString("fund_nm");
 			float price = Float.valueOf(cell.getString("price"));
 			float volume = Float.valueOf(cell.getString("volume"));
-			if ((volume > volumnFence || (lastTradeOver5MFunds != null
-					&& !lastTradeOver5MFunds.isEmpty() && lastTradeOver5MFunds.contains(fundId)))
-					&& !hasNotifiedSet.contains(fundId)) {
-				float increaseRate = StringUtils.isNumeric(StringUtils.removeEnd(
-						cell.getString("increase_rt"), "%")) ? Float.valueOf(StringUtils.removeEnd(
-						cell.getString("increase_rt"), "%")) : 0;
-				float discountRate = StringUtils.isNumeric(StringUtils.removeEnd(
-						cell.getString("discount_rt"), "%")) ? Float.valueOf(StringUtils.removeEnd(
-						cell.getString("discount_rt"), "%")) : 0;
+			if ((volume > volumnFence || (lastTradeOver5MFunds != null && !lastTradeOver5MFunds.isEmpty()
+					&& lastTradeOver5MFunds.contains(fundId))) && !hasNotifiedSet.contains(fundId)) {
+				float increaseRate = StringUtils.isNumeric(StringUtils.removeEnd(cell.getString("increase_rt"), "%"))
+						? Float.valueOf(StringUtils.removeEnd(cell.getString("increase_rt"), "%")) : 0;
+				float discountRate = StringUtils.isNumeric(StringUtils.removeEnd(cell.getString("discount_rt"), "%"))
+						? Float.valueOf(StringUtils.removeEnd(cell.getString("discount_rt"), "%")) : 0;
 				String indexId = cell.getString("index_id");
 				String indexName = cell.getString("index_nm");
-				float indexIncreaseRate = StringUtils.length(cell.getString("index_increase_rt")) > 1 ? Float
-						.valueOf(StringUtils.removeEnd(cell.getString("index_increase_rt"), "%"))
-						: 0;
+				float indexIncreaseRate = StringUtils.length(cell.getString("index_increase_rt")) > 1
+						? Float.valueOf(StringUtils.removeEnd(cell.getString("index_increase_rt"), "%")) : 0;
 				if (discountRate < discountRateFence && increaseRate < increaseRateFence) {
 					hasNotifiedSet.add(fundId);
-					sb.append(String.format(
-							"%s, %s, 涨幅：%.2f%%, 溢价率：%.2f%%, 现价：%.3f\n%s, %s, 涨幅：%.2f%%;\n\n",
-							fundId, fundName, increaseRate, discountRate, price, indexId,
-							indexName, indexIncreaseRate));
+					sb.append(String.format("%s, %s, 涨幅：%.2f%%, 溢价率：%.2f%%, 现价：%.3f\n%s, %s, 涨幅：%.2f%%;\n\n", fundId,
+							fundName, increaseRate, discountRate, price, indexId, indexName, indexIncreaseRate));
 				}
 			}
 		}
 		if (StringUtils.isNotBlank(sb.toString())) {
 			log.info(sb.toString());
-			final String title = "etf lower flow! " + CrawlerHelper.sdf.format(new Date());
+			final String title = "etf lower flow! "
+					+ DateFormatUtils.format(new Date(), CrawlerHelper.dateTimeFormatPattern);
 			final String content = sb.toString();
 			Thread thread = new Thread(new Runnable() {
 				public void run() {
@@ -180,17 +179,15 @@ public class EtfCrawler {
 		Map<String, String> paramMap = new HashMap<>();
 		paramMap.put("___t", String.valueOf(fireDate.getTime()));
 		Map<String, String> headerMap = new HashMap<>();
-		headerMap
-				.put("User-Agent",
-						"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:37.0) Gecko/20100101 Firefox/37.0");
+		headerMap.put("User-Agent",
+				"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:37.0) Gecko/20100101 Firefox/37.0");
 		headerMap.put("Accept", "application/json, text/javascript, */*; q=0.01");
 		headerMap.put("Accept-Language", "en-US,en;q=0.5");
 		headerMap.put("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
 		headerMap.put("Cache-Control", "no-cache");
 		headerMap.put("Pragma", "no-cache");
 		// Find yourself a better source.
-		String hostPath = "http://www.jisilu.cn/jisiludata/etf.php";
-		String json = HttpClientUtil.getStringFromHost(hostPath, paramMap, headerMap, "utf-8");
+		String json = HttpClientUtil.getStringFromHost(etfHostPath, paramMap, headerMap, "utf-8");
 		return json;
 	}
 }
