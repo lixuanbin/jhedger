@@ -78,7 +78,7 @@ public class HttpClientUtil {
 		return result;
 	}
 
-	private static String buildUri(String host, Map<String, String> params, String encoding)
+	public static String buildUri(String host, Map<String, String> params, String encoding)
 			throws UnsupportedEncodingException {
 		StringBuffer param = new StringBuffer();
 		if (params != null && !params.isEmpty()) {

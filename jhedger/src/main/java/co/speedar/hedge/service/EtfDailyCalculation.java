@@ -14,6 +14,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
@@ -48,6 +49,14 @@ public class EtfDailyCalculation {
 			jdbcTemplate.execute(sql);
 		} catch (Exception e) {
 			log.error(e, e);
+		}
+	}
+
+	@Scheduled(cron = "1 33 19 * * MON-FRI")
+	public void calculate() {
+		Date date = new Date();
+		if (CrawlerHelper.isTradeDate(date)) {
+			calculateDate(date);
 		}
 	}
 }

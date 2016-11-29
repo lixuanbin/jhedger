@@ -3,18 +3,28 @@
  */
 package co.speedar.hedge.util;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.jsoup.Connection.Response;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import org.jsoup.select.Selector.SelectorParseException;
 
 /**
  * @author ben
@@ -33,6 +43,9 @@ public class CrawlerHelper {
 	 * @return
 	 */
 	public static boolean isNotOpen(Date nowDate) {
+		if (isWeekend(nowDate)) {
+			return true;
+		}
 		Calendar now = Calendar.getInstance();
 		now.setTime(nowDate);
 		Calendar nineThirty = Calendar.getInstance();
@@ -61,6 +74,83 @@ public class CrawlerHelper {
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * 判断指定日期是否周末
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static boolean isWeekend(Date date) {
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
+		cal.setTime(date);
+		int dow = cal.get(Calendar.DAY_OF_WEEK);
+		if (dow == Calendar.SUNDAY || dow == Calendar.SATURDAY) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 判断指定日期是否交易日
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static boolean isTradeDate(Date date) {
+		boolean isOpen = false;
+		if (isWeekend(date)) {
+			return isOpen;
+		}
+		String[] codes = { "sh510050", "sh601398", "sh601857" };
+		String day = DateFormatUtils.format(date, dateFormatPattern);
+		if (DateUtils.isSameDay(date, Calendar.getInstance(TimeZone.getTimeZone("GMT+8")).getTime())) {
+			Map<String, String> paramMap = new HashMap<>();
+			String url = "http://hq.sinajs.cn/";
+			Map<String, String> headerMap = new HashMap<>();
+			headerMap.put("User-Agent",
+					"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:37.0) Gecko/20100101 Firefox/37.0");
+			headerMap.put("Accept", "application/json, text/javascript, */*; q=0.01");
+			headerMap.put("Accept-Language", "en-US,en;q=0.5");
+			headerMap.put("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+			headerMap.put("Cache-Control", "no-cache");
+			headerMap.put("Pragma", "no-cache");
+			for (String code : codes) {
+				paramMap.put("list", code);
+				String json = HttpClientUtil.getStringFromHost(url, paramMap, headerMap, "utf-8");
+				if (StringUtils.contains(json, day)) {
+					isOpen = true;
+					return isOpen;
+				}
+			}
+		} else {
+			String url = "http://market.finance.sina.com.cn/pricehis.php";
+			Map<String, String> paramMap = new HashMap<>();
+			paramMap.put("startdate", day);
+			paramMap.put("enddate", day);
+			for (String code : codes) {
+				paramMap.put("symbol", code);
+				try {
+					String qurl = HttpClientUtil.buildUri(url, paramMap, "utf-8");
+					Response response = Jsoup.connect(qurl)
+							.header("User-Agent",
+									"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20100101 Firefox/29.0")
+							.followRedirects(true).execute();
+					Document doc = response.parse();
+					Elements datalist = doc.select("table#datalist");
+					if (datalist != null) {
+						isOpen = true;
+						return isOpen;
+					}
+				} catch (IOException e) {
+					log.error(e, e);
+				} catch (SelectorParseException e) {
+					log.error(e, e);
+				}
+			}
+		}
+		return isOpen;
 	}
 
 	/**
@@ -191,5 +281,9 @@ public class CrawlerHelper {
 			lofList.add(map);
 		}
 		return lofList;
+	}
+
+	public static void main(String[] args) {
+		System.out.println(isTradeDate(new GregorianCalendar(2016, 10, 30).getTime()));
 	}
 }
