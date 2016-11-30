@@ -79,8 +79,11 @@ public class LofCrawler {
 	 */
 	private List<String> lastTradeOver5MFunds;
 	
+	// fenji detail url:
+	// https://www.jisilu.cn/jisiludata/StockFenJiDetail.php?qtype=hist&display=table&fund_id=160718&___t=1480481613332
 	public static final String fundbHostPath = "https://www.jisilu.cn/data/sfnew/fundb_list/";
 	public static final String fundaHostPath = "https://www.jisilu.cn/data/sfnew/funda_list/";
+	public static final String fundmHostPath = "https://www.jisilu.cn/data/sfnew/fundm_list/";
 
 	@PostConstruct
 	public void init() {
@@ -146,6 +149,8 @@ public class LofCrawler {
 			List<Map<String, Object>> lofList = CrawlerHelper.buildLofListFromJson(fireDate, json);
 			dao.batchInsertLofDetail(lofList, fireDay);
 			json = getLofJson(fundaHostPath, fireDate);
+			log.info(json);
+			json = getLofJson(fundmHostPath, fireDate);
 			log.info(json);
 		}
 	}
