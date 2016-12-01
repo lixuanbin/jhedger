@@ -83,8 +83,8 @@ public class EtfDaoTest {
 					if (StringUtils.contains(line, "page") && StringUtils.contains(line, "{")
 							&& StringUtils.contains(line, "}")) {
 						if (StringUtils.contains(line, "fundb_id")) {
-							List<Map<String, Object>> lofList = CrawlerHelper.buildLofListFromJson(new Date(), line);
-							lofDao.batchInsertLofDetail(lofList, fireDateTime);
+							List<Map<String, Object>> lofList = CrawlerHelper.buildFundbListFromJson(new Date(), line);
+							lofDao.batchInsertFundbDetail(lofList, fireDateTime);
 						} else if (StringUtils.contains(line, "fund_id")) {
 							List<Map<String, Object>> etfList = CrawlerHelper.buildEtfListFromJson(new Date(), line);
 							etfDao.batchInsertEtfDetail(etfList, fireDateTime);

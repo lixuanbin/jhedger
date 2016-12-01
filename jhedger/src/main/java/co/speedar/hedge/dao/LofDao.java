@@ -26,10 +26,17 @@ public class LofDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	protected static final String batchInsertLofDetailSql = "replace INTO `hedger2`.`lof_fundb_detail`(`fundb_id`,`fundb_name`,"
+	protected static final String batchInsertFundbDetailSql = "replace INTO `hedger2`.`lof_fundb_detail`(`fundb_id`,`fundb_name`,"
 			+ "`fundb_current_price`,`fundb_volume`,`fundb_increase_rt`,`fundb_value`,`fundb_est_val`,`fundb_discount_rt`,"
 			+ "`fundb_price_leverage_rt`,`fundb_net_leverage_rt`,`fundb_lower_recalc_rt`,`fundb_nav_datetime`,`fundb_upper_recalc_rt`,"
 			+ "`fundb_index_id`,`fundb_index_increase_rt`,`fundb_base_est_dis_rt`,`craw_datetime`)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+	protected static final String batchInsertFundaDetailSql = "replace INTO `hedger2`.`lof_funda_detail` (`funda_id`, `funda_nav_datetime`, "
+			+ "`craw_datetime`, `funda_name`, `funda_current_price`, `funda_increase_rt`, `funda_volume`, `funda_value`, `funda_discount_rt`, "
+			+ "`coupon_descr_s`, `funda_coupon`, `funda_coupon_next`, `funda_profit_rt_next`, `funda_left_year`, `funda_index_id`, `funda_index_name`, "
+			+ "`funda_index_increase_rt`, `funda_lower_recalc_rt`, `lower_recalc_profit_rt`, `fundb_upper_recalc_rt`, `funda_base_est_dis_rt`, "
+			+ "`funda_base_est_dis_rt_t1`, `funda_base_est_dis_rt_t2`, `funda_amount`, `funda_amount_increase`, `abrate`, `next_recalc_dt`, "
+			+ "`left_recalc_year`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 	protected static final String lastTradeVolumeOver10MSql = "select distinct fundb_id from hedger2.lof_fundb_detail where DATE(fundb_nav_datetime)="
 			+ "(select DATE(fundb_nav_datetime) as lastTradeDay from hedger2.lof_fundb_detail where DATE(fundb_nav_datetime)<CURDATE()-1 order by fundb_nav_datetime desc limit 1) and fundb_volume>1000;";
@@ -46,12 +53,12 @@ public class LofDao {
 			+ "and TIME(fundb_nav_datetime)>'14:45:00';";
 
 	/**
-	 * Insert a list of lof details.
+	 * Insert a list of fundb details.
 	 * 
 	 * @param lofList
 	 */
-	public void batchInsertLofDetail(final List<Map<String, Object>> lofList, final String fireDay) {
-		jdbcTemplate.batchUpdate(batchInsertLofDetailSql, new BatchPreparedStatementSetter() {
+	public void batchInsertFundbDetail(final List<Map<String, Object>> lofList, final String fireDay) {
+		jdbcTemplate.batchUpdate(batchInsertFundbDetailSql, new BatchPreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
 				Map<String, Object> map = lofList.get(i);
@@ -72,6 +79,53 @@ public class LofDao {
 				ps.setFloat(15, (Float) map.get("fundb_index_increase_rt"));
 				ps.setFloat(16, (Float) map.get("fundb_base_est_dis_rt"));
 				ps.setString(17, fireDay);
+			}
+
+			@Override
+			public int getBatchSize() {
+				return lofList.size();
+			}
+		});
+	}
+
+	/**
+	 * Insert a list of funda details.
+	 * 
+	 * @param lofList
+	 */
+	public void batchInsertFundaDetail(final List<Map<String, Object>> lofList, final String fireDay) {
+		jdbcTemplate.batchUpdate(batchInsertFundaDetailSql, new BatchPreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps, int i) throws SQLException {
+				Map<String, Object> map = lofList.get(i);
+				ps.setString(1, String.valueOf(map.get("funda_id")));
+				ps.setString(2, String.valueOf(map.get("funda_nav_datetime")));
+				ps.setString(3, String.valueOf(map.get("craw_datetime")));
+				ps.setString(4, String.valueOf(map.get("funda_name")));
+				ps.setFloat(5, (Float) map.get("funda_current_price"));
+				ps.setFloat(6, (Float) map.get("funda_increase_rt"));
+				ps.setFloat(7, (Float) map.get("funda_volume"));
+				ps.setFloat(8, (Float) map.get("funda_value"));
+				ps.setFloat(9, (Float) map.get("funda_discount_rt"));
+				ps.setString(10, String.valueOf(map.get("coupon_descr_s")));
+				ps.setFloat(11, (Float) map.get("funda_coupon"));
+				ps.setFloat(12, (Float) map.get("funda_coupon_next"));
+				ps.setFloat(13, (Float) map.get("funda_profit_rt_next"));
+				ps.setString(14, String.valueOf(map.get("funda_left_year")));
+				ps.setString(15, String.valueOf(map.get("funda_index_id")));
+				ps.setString(16, String.valueOf(map.get("funda_index_name")));
+				ps.setFloat(17, (Float) map.get("funda_index_increase_rt"));
+				ps.setFloat(18, (Float) map.get("funda_lower_recalc_rt"));
+				ps.setFloat(19, (Float) map.get("lower_recalc_profit_rt"));
+				ps.setFloat(20, (Float) map.get("fundb_upper_recalc_rt"));
+				ps.setFloat(21, (Float) map.get("funda_base_est_dis_rt"));
+				ps.setFloat(22, (Float) map.get("funda_base_est_dis_rt_t1"));
+				ps.setFloat(23, (Float) map.get("funda_base_est_dis_rt_t2"));
+				ps.setFloat(24, (Float) map.get("funda_amount"));
+				ps.setFloat(25, (Float) map.get("funda_amount_increase"));
+				ps.setString(26, String.valueOf(map.get("abrate")));
+				ps.setString(27, String.valueOf(map.get("next_recalc_dt")));
+				ps.setFloat(28, (Float) map.get("left_recalc_year"));
 			}
 
 			@Override

@@ -26,6 +26,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.jsoup.select.Selector.SelectorParseException;
 
+import co.speedar.hedge.service.LofCrawler;
+
 /**
  * @author ben
  *
@@ -218,7 +220,7 @@ public class CrawlerHelper {
 		return etfList;
 	}
 
-	public static List<Map<String, Object>> buildLofListFromJson(Date fireDate, String json) {
+	public static List<Map<String, Object>> buildFundbListFromJson(Date fireDate, String json) {
 		List<Map<String, Object>> lofList = new ArrayList<Map<String, Object>>();
 		JSONObject jsonObject = new JSONObject(json);
 		JSONArray jsonArray = jsonObject.getJSONArray("rows");
@@ -283,7 +285,58 @@ public class CrawlerHelper {
 		return lofList;
 	}
 
+	public static List<Map<String, Object>> buildFundaListFromJson(Date fireDate, String json) {
+		List<Map<String, Object>> lofList = new ArrayList<Map<String, Object>>();
+		JSONObject jsonObject = new JSONObject(json);
+		JSONArray jsonArray = jsonObject.getJSONArray("rows");
+		for (int i = 0; i < jsonArray.length(); i++) {
+			JSONObject j = jsonArray.getJSONObject(i);
+			JSONObject cell = j.getJSONObject("cell");
+			Map<String, Object> map = new HashMap<String, Object>();
+			saturateMapFromJSONObject(map, cell);
+			lofList.add(map);
+		}
+		return lofList;
+	}
+
+	/**
+	 * Saturate map from json string
+	 * 
+	 * @param map
+	 * @param json
+	 */
+	public static void saturateMapFromJSONObject(Map<String, Object> map, JSONObject json) {
+		for (Object keyObj : json.keySet()) {
+			String key = (String) keyObj;
+			Object val = json.get(key);
+			if (val != null) {
+				if ((NumberUtils.isNumber(StringUtils.removeEnd(String.valueOf(val), "%"))
+						&& !StringUtils.endsWith(key, "_id")) || StringUtils.contains(key, "_rt")
+						|| StringUtils.contains(key, "_price")) {
+					float f = Float.valueOf(NumberUtils.isNumber(StringUtils.removeEnd(String.valueOf(val), "%"))
+							? StringUtils.removeEnd(String.valueOf(json.get(key)), "%") : "-99");
+					map.put(key, f);
+				} else if (StringUtils.contains(String.valueOf(key), "nav_dt")) {
+					String dt = String.valueOf(json.get(key));
+					String last_time = json.getString("last_time");
+					map.put(StringUtils.replace(key, "dt", "datetime"), dt + " " + last_time);
+				} else {
+					if (StringUtils.contains(String.valueOf(val), "<")
+							&& StringUtils.contains(String.valueOf(val), ">")) {
+						int start = StringUtils.indexOf(String.valueOf(val), ">");
+						int end = StringUtils.indexOf(String.valueOf(val), "</");
+						map.put(key, StringUtils.substring(String.valueOf(val), start + 1, end));
+					} else {
+						map.put(key, String.valueOf(val));
+					}
+				}
+			}
+		}
+		map.put("craw_datetime", DateFormatUtils.format(new Date(), CrawlerHelper.dateTimeFormatPattern));
+	}
+
 	public static void main(String[] args) {
 		System.out.println(isTradeDate(new GregorianCalendar(2016, 10, 30).getTime()));
+		System.out.println(LofCrawler.getLofJson(LofCrawler.fundmHostPath, new Date()));
 	}
 }
