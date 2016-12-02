@@ -85,23 +85,35 @@ public class LofCrawler {
 	public static final String fundbHostPath = "https://www.jisilu.cn/data/sfnew/fundb_list/";
 	public static final String fundmHostPath = "https://www.jisilu.cn/data/sfnew/fundm_list/";
 
+	private volatile boolean isTradeDateInit;
+	private volatile boolean isTradeDate;
+
+	@Autowired
+	private LofDao dao;
+
 	@PostConstruct
 	public void init() {
 		try {
+			isTradeDateInit = false;
+			isTradeDate = false;
+			lastTradeOver5MFunds = null;
 			lastTradeOver5MFunds = dao.queryLastTradeVolumeOver5M();
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
 	}
 
-	@Autowired
-	private LofDao dao;
-
-	@Scheduled(cron = "1 1/2 9-11,13-14 * * MON-FRI")
+	@Scheduled(cron = "1 2/2 9-11,13-14 * * MON-FRI")
 	public void execute() {
-		Date fireDate = new Date();
 		try {
-			craw(fireDate);
+			Date fireDate = new Date();
+			if (!isTradeDateInit) {
+				isTradeDate = CrawlerHelper.isTradeDate(fireDate);
+				isTradeDateInit = true;
+			}
+			if (isTradeDate) {
+				craw(fireDate);
+			}
 		} catch (Exception e) {
 			log.error(e, e);
 		}
@@ -119,11 +131,7 @@ public class LofCrawler {
 
 	@Scheduled(cron = "1 1 9 * * MON-FRI")
 	public void lastDay() {
-		try {
-			lastTradeOver5MFunds = dao.queryLastTradeVolumeOver5M();
-		} catch (Exception e) {
-			log.error(e, e);
-		}
+		init();
 	}
 
 	@Scheduled(cron = "11 28 9 * * MON-FRI")

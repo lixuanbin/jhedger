@@ -64,7 +64,7 @@ public class EtfDaoTest {
 	@Test
 	public void readLogFileAndInsert() throws IOException {
 		// String logFolderPath = "/Users/lixuanbin/Documents/jhedger_logs";
-		String logFolderPath = "/Users/lixuanbin/Documents/jhedger_2015-2016";
+		String logFolderPath = "/Users/lixuanbin/Documents/jhedger_logs_2016-11-24";
 		File logFolderFile = new File(logFolderPath);
 		File[] logFiles = logFolderFile.listFiles();
 		Pattern dateTimePattern = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}");

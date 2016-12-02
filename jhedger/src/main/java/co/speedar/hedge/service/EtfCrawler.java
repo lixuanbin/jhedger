@@ -49,6 +49,8 @@ public class EtfCrawler {
 	 */
 	protected static final float increaseRateFence = 9;
 
+	public static final String etfHostPath = "https://www.jisilu.cn/jisiludata/etf.php";
+
 	/**
 	 * 是否提醒过
 	 */
@@ -58,12 +60,19 @@ public class EtfCrawler {
 	 * 上个交易日成交量大于500万的基金id列表
 	 */
 	private List<String> lastTradeOver5MFunds;
-	
-	public static final String etfHostPath = "https://www.jisilu.cn/jisiludata/etf.php";
+
+	@Autowired
+	private EtfDao dao;
+
+	private volatile boolean isTradeDateInit;
+	private volatile boolean isTradeDate;
 
 	@PostConstruct
 	public void init() {
 		try {
+			isTradeDateInit = false;
+			isTradeDate = false;
+			lastTradeOver5MFunds = null;
 			lastTradeOver5MFunds = dao.queryLastTradeVolumeOver5M();
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -72,21 +81,20 @@ public class EtfCrawler {
 
 	@Scheduled(cron = "1 1 9 * * MON-FRI")
 	public void lastDay() {
-		try {
-			lastTradeOver5MFunds = dao.queryLastTradeVolumeOver5M();
-		} catch (Exception e) {
-			log.error(e, e);
-		}
+		init();
 	}
-
-	@Autowired
-	private EtfDao dao;
 
 	@Scheduled(cron = "1 1/2 9-11,13-14 * * MON-FRI")
 	public void execute() {
-		Date fireDate = new Date();
 		try {
-			craw(fireDate);
+			Date fireDate = new Date();
+			if (!isTradeDateInit) {
+				isTradeDate = CrawlerHelper.isTradeDate(fireDate);
+				isTradeDateInit = true;
+			}
+			if (isTradeDate) {
+				craw(fireDate);
+			}
 		} catch (Exception e) {
 			log.error(e, e);
 		}
