@@ -105,7 +105,7 @@ public class CrawlerHelper {
 		if (isWeekend(date)) {
 			return isOpen;
 		}
-		String[] codes = { "sh510050", "sh601398", "sh601857" };
+		String[] codes = { "sh510050", "sh601398", "sh601857", "sh600653"};
 		String day = DateFormatUtils.format(date, dateFormatPattern);
 		if (DateUtils.isSameDay(date, Calendar.getInstance(TimeZone.getTimeZone("GMT+8")).getTime())) {
 			Map<String, String> paramMap = new HashMap<>();

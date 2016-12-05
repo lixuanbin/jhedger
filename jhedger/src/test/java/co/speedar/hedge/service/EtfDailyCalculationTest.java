@@ -24,7 +24,7 @@ public class EtfDailyCalculationTest {
 
 	@Test
 	public void testDaily() {
-		etfDaily.calculateDate(new GregorianCalendar(2016, 9, 20).getTime());
+		etfDaily.calculateDate(new GregorianCalendar(2016, 11, 1).getTime());
 	}
 
 	@Test

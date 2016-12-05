@@ -1,5 +1,5 @@
 # daily calculation of etf_details
-# params: ${day}:, ${partition}
+# params: ${day}, ${partition}
 INSERT INTO `hedger2`.`etf_day`(fund_id, nav_date, trade_date, fund_name, index_id, max_price, avg_price, min_price, open_price, close_price, volume, increase_rt, index_increase_rt, estimate_value, discount_rt, pe, pb)
 SELECT *
 FROM
@@ -44,7 +44,8 @@ FROM
                 date(craw_datetime) craw_daytime,
                 craw_datetime,
                 price
-         FROM `hedger2`.`etf_detail`) t1
+         FROM `hedger2`.`etf_detail` partition(${partition}) WHERE craw_datetime>='${day}'
+           AND craw_datetime<date_add('${day}', interval 1 DAY)) t1
       JOIN
         (SELECT fund_id,
                 date(craw_datetime) craw_daytime,
@@ -81,7 +82,8 @@ FROM
                 discount_rt,
                 pe,
                 pb
-         FROM `hedger2`.`etf_detail`) t1
+         FROM `hedger2`.`etf_detail` partition(${partition}) WHERE craw_datetime>='${day}'
+           AND craw_datetime<date_add('${day}', interval 1 DAY)) t1
       JOIN
         (SELECT fund_id,
                 date(craw_datetime) craw_daytime,
