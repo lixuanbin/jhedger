@@ -992,6 +992,7 @@ CREATE TABLE if not exists `hedger2`.`etf_day` (
   `price_ma250` float null comment '250日均价',
   `volume_ma5` float null comment '5日均量',
   `volume_ma10` float null comment '10日均量',
+  `volume_ma20` float null comment '20日均量',
   `volume_ma30` float null comment '30日均量',
   `volume_ma60` float null comment '60日均量',
   `volume_ma120` float null comment '120日均量',
