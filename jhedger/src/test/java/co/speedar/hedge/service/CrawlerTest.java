@@ -42,7 +42,7 @@ public class CrawlerTest {
 	@Test
 	public void testGetLofJson() {
 		Date fireDate = new GregorianCalendar(2015, 9, 10, 12, 40, 30).getTime();
-		String json = lofCrawler.getLofJson(LofCrawler.fundbHostPath, fireDate);
+		String json = LofCrawler.getLofJson(LofCrawler.fundbHostPath, fireDate);
 		System.out.println(json);
 	}
 }

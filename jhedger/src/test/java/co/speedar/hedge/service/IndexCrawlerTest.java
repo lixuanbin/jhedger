@@ -1,6 +1,5 @@
 package co.speedar.hedge.service;
 
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -14,12 +13,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml" })
-public class IndexDailyCalculationTest {
+public class IndexCrawlerTest {
 	@Autowired
-	private IndexDailyCalculation service;
+	private IndexCrawler service;
 
 	@Test
-	public void testCalculate() throws ParseException {
+	public void testCalculateDate() {
 		Date start = new GregorianCalendar(2016, 11, 1).getTime();
 		Date end = Calendar.getInstance().getTime();
 		while (start.before(end)) {

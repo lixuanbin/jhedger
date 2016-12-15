@@ -30,12 +30,12 @@ public class IndexDailyCalculation {
 	 */
 	public void calculateDate(Date date) {
 		String day = DateFormatUtils.format(date, CrawlerHelper.dateFormatPattern);
-		log.info(day);
 		String queryIndexIdSql = "select distinct index_id from `hedger2`.`index_day` where trade_date=?";
 		try {
 			List<String> indexIds = jdbcTemplate.queryForList(queryIndexIdSql, String.class, day);
 			if (indexIds != null && !indexIds.isEmpty()) {
 				for (String indexId : indexIds) {
+					log.info(String.format("Calculating moving average of index[%s] at day[%s].", indexId, day));
 					Map<String, String> map = new HashMap<>();
 					map.put("close_price", "price_ma");
 					map.put("volume", "volume_ma");

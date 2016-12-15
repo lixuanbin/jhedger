@@ -35,6 +35,7 @@ import co.speedar.hedge.service.LofCrawler;
 public class CrawlerHelper {
 	public static final String dateTimeFormatPattern = "yyyy-MM-dd HH:mm:ss";
 	public static final String dateFormatPattern = "yyyy-MM-dd";
+	public static final String yyyyMMddPattern = "yyyyMMdd";
 	public static final String yearMonthFormatPattern = "yyyyMM";
 	protected static final Logger log = Logger.getLogger(CrawlerHelper.class);
 
