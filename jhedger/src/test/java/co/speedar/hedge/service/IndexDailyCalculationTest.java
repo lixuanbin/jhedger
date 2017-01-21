@@ -20,7 +20,7 @@ public class IndexDailyCalculationTest {
 
 	@Test
 	public void testCalculate() throws ParseException {
-		Date start = new GregorianCalendar(2016, 11, 1).getTime();
+		Date start = new GregorianCalendar(2016, 11, 15).getTime();
 		Date end = Calendar.getInstance().getTime();
 		while (start.before(end)) {
 			service.calculateDate(start);
